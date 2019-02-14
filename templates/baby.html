@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Modal</title>
+    <link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+    <link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+    <script src={{url_for("static",filename="layer/mobile/layer.js")}}></script>
+    <link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/font-awesome.min.css")}}/>
+    <link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/build.css")}}/>
+    <link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+    <script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+    <!--底层关键排版-->
+    <link rel="stylesheet" href={{url_for("static",filename="css/businessList.css")}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/11css.css")}}>
+    <style>
+        .storeTd{float:right}
+
+.storeTdValue{padding-left:5px}
+    </style>
+
+</head>
+<body>
+<div class="" role="document" style="padding:5px 5px 5px 5px;background-color:#f5f5f5" >
+    <button type="button" class="list-group-item" data-toggle="modal" data-target="#addBabyModal" style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);">新增宝宝</button>
+</div>
+<div class="panel panel-default" style="border:none">
+    <div class="panel-heading"   style="border:none;background-color:white">当前宝宝</div>
+    <div class=""  style="background-color:white;border:none;padding:5px">
+        <div class="list-group" role="group" aria-label="宝宝列表" style="border:none">
+
+             {% for i in results %}
+            <div class="index  babyClass">
+                <div class="index_box">
+                    <div class="index_icon">
+                        <div class="icon_h" id="focusBtn"></div>
+                        <div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">
+                            <button type="button" class="list-group-item " data-toggle="modal" data-target="#editBabyModal"  style="border:none ;　outline: none; background: rgba(255,255,255,1);">
+                            <table >
+                                <tr>
+                                    <td class="storeTd">宝宝姓名: </td>
+                                    <td class="storeTdValue"><p>{{i[1]}}</p></td>
+                                </tr>
+                                 <tr>
+                                    <td class="storeTd">出生日期:</td>
+                                    <td class="storeTdValue"> <p>{{i[2]}}</p></td>
+                                </tr>
+
+                                 <tr style="display:none;">
+                                    <td class="storeId">id: </td>
+                                    <td class="storeIdValue"><p>{{i[0]}}</p></td>
+                                </tr>
+                            </table>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+             {% endfor %}
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="addBabyModal" tabindex="-1" role="dialog" aria-labelledby="addStoreModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >新增宝宝</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addBabyForm">
+                    <div class="form-group">
+                        <label  class="control-label">宝宝名称:</label>
+                        <input type="text" class="form-control" id="addBabyName" name="addBabyName">
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">出生日期</label>
+                        <input type="text" class="form-control" id="addBabyBirth" name="addBabyBirth">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addBabyBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="editBabyModal" tabindex="-1" role="dialog" aria-labelledby="editBabyModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >编辑宝宝信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editBabyForm">
+                     <input type="hidden" class="form-control" id="babyId" name="babyId">
+                    <div class="form-group">
+                        <label  class="control-label">宝宝名称:</label>
+                        <input type="text" class="form-control" id="editBabyName" name="editBabyName">
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">出生日期</label>
+                        <input type="text" class="form-control" id="editBabyBirth" name="editBabyBirth">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="delBtn">移除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"  id="editBabyBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="" style="border:none">
+    <!--设置固定在底部-->
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container feet">
+            <a href="/personPage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+            <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+        </div>
+    </nav>
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+$("#addBabyBtn").on("click", function() {
+
+        $.ajax({
+            	type:"Post",
+				url:"/addBaby",
+            	dataType:'json',
+            	data:$("#addBabyForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		  <!--layer.open({-->
+			    <!--content: msg-->
+			    <!--,skin: 'msg'-->
+			    <!--,time: 2 //2秒后自动关闭-->
+			  <!--});-->
+			  location.reload();
+            		}
+	});
+		//$('#addBussinessList').modal('hide')
+
+	})
+
+
+$("#editBabyBtn").on("click", function() {
+
+        $.ajax({
+            	type:"Post",
+				url:"/editBaby",
+            	dataType:'json',
+            	data:$("#editBabyeForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+
+            		}
+	});
+
+		location.reload();
+	})
+
+
+
+
+
+$("#delBtn").on("click", function() {
+          var  babyId=$("#babyId").val();
+         var data = {
+            "delId": babyId
+            }
+         layer.open({
+             content: '您确定要移除该项目么'
+             ,btn: ['确定', '取消']
+         ,yes: function(index){
+           $.ajax({
+            	type:"Post",
+				url:"/delBaby",
+            	dataType:'json',
+            	data:data,
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		location.reload();
+            		                }
+	                });
+                 layer.close(index);
+                                 }
+  });
+  } );
+
+
+
+  $(".babyClass").on("click", function() {
+		var name=$(this).find("p").eq(0).text();
+		var bitrh=$(this).find("p").eq(1).text();
+		var Id=$(this).find("p").eq(2).text();
+       // alert('已经选中'+name+bitrh);
+        $('#editBabyModal').on('show.bs.modal', function () {
+            $("#editBabyName").val(name);
+            $("#editBabyBirth").val(bitrh);
+            $("#babyId").val(Id);
+
+    })
+
+        });
+</script>
+</body>
+</html>
+

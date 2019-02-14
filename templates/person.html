@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+		<title>个人中心</title>
+		 <!--<script src="../alibaba/js/iconfont.js"></script>-->
+		 <!--<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">-->
+		<!--<script type="text/javascript" src="../js/jquery.js" charset="UTF-8"></script>-->
+		<link rel="stylesheet" href={{url_for("static",filename="bootstrap/css/bootstrap.css")}}>
+		<link rel="stylesheet" href={{url_for("static",filename="css/swiper3.07.min.css")}}>
+		<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+		<script src={{url_for("static",filename="js/jquery.js")}}></script>
+		<style>
+			@charset "UTF-8";
+			body{margin:0;background: #f9f9f9;}
+			a:active,a:hover{outline:0}
+			button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+			button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+			table{border-collapse:collapse;border-spacing:0}
+			td,th{padding:0}
+			img{vertical-align:middle;border:0}
+			@-ms-viewport{width:device-width}
+			html{font-size:300%;-webkit-tap-highlight-color:transparent;height:100%;min-width:320px;overflow-x:hidden}
+			body{font-family:"microsoft yahei";font-size:.28em;line-height:1;color:#333;background-color:#f1f1f1;}
+			.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{font-weight:500;line-height:1.1}
+			.h1 .small,.h1 small,.h2 .small,.h2 small,.h3 .small,.h3 small,.h4 .small,.h4 small,.h5 .small,.h5 small,.h6 .small,.h6 small,h1 .small,h1 small,h2 .small,h2 small,h3 .small,h3 small,h4 .small,h4 small,h5 .small,h5 small,h6 .small,h6 small{font-weight:400;line-height:1}
+			.h1,.h2,.h3,h1,h2,h3{margin-top:.28rem;margin-bottom:.14rem}
+			.h1 .small,.h1 small,.h2 .small,.h2 small,.h3 .small,.h3 small,h1 .small,h1 small,h2 .small,h2 small,h3 .small,h3 small{font-size:65%}
+			.h4,.h5,.h6,h4,h5,h6{margin-top:.14rem;margin-bottom:.14rem}
+			.h4 .small,.h4 small,.h5 .small,.h5 small,.h6 .small,.h6 small,h4 .small,h4 small,h5 .small,h5 small,h6 .small,h6 small{font-size:75%}
+			.h1,h1{font-size:.364rem}
+			.h2,h2{font-size:.2996rem}
+			.h3,h3{font-size:.238rem}
+			.h4,h4{font-size:.175rem}
+			.h5,h5{font-size:.14rem}
+			.h6,h6{font-size:.119rem}
+			i{font-style: normal;}
+			h6{margin-top:0;margin-bottom:0}
+			button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
+			a{color:#777;text-decoration:none;outline:0}
+			a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+			a.react,label.react{display:block;color:inherit;height:100%}
+			a.react.react-active,a.react:active,label.react:active{background:rgba(0,0,0,.1)}
+			ul{margin:0;padding:0;list-style-type:none}
+			hr{margin-top:.28rem;margin-bottom:.28rem;border:0;border-top:1px solid #DDD8CE}
+			h6,p{line-height:1.41;text-align:justify;margin:-.1em 0;word-break:break-all}
+			small,weak{color:#666}
+			::-webkit-input-placeholder {color:#999;line-height:inherit;} 
+			:-moz-placeholder {color:#999;line-height:inherit;} 
+			::-moz-placeholder {color:#999;line-height:inherit;}
+			.c:before,.c:after {content: "";display: table}
+			.c:after {clear: both}
+			.c {zoom: 1}
+			@font-face {font-family: 'iconfont';
+			    src: url('/static/css/iconfont.eot'); /* IE9*/
+			    src: url('/static/css/iconfont.eot@#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			    url('/static/css/iconfont.woff') format('woff'), /* chrome、firefox */
+			    url('/static/css/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+			    url('/static/css/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			.iconfont{
+			    font-family:"iconfont" !important;
+			   font-style:normal;
+			    -webkit-font-smoothing: antialiased;
+			    -webkit-text-stroke-width: 0.2px;
+			    -moz-osx-font-smoothing: grayscale;
+		    }
+		    header {
+			    color: #fff;
+			    height: 2.3rem;
+			    padding-left:15px;
+			     padding-top: 5%;
+			     padding-right: 15px;
+			     overflow:hidden
+			}
+			header div{
+			background-color: #FFA8A8;
+			}
+			
+			.user{
+			    text-align: center;
+			    height: 100%;
+			    width: 20%;
+			    float: left;
+			    line-height: 2rem;
+			}
+			.user i{
+    			font-size: 1rem;
+			}
+			.userinfo{
+				    height: 2rem;
+				    float: left;
+				    width: 50%;
+			}
+			.userinfo p:first-child{
+			    font-size: .32rem;
+			    padding-top: .65rem;
+			}
+			.userinfo p:last-child span{
+			    margin-left: 1rem;
+			}
+			.right_icon{
+			    font-size: .5rem;
+			    float: left;
+			    width: 26%;
+			    line-height: 2rem;
+			    text-align: right;
+			    padding-right: 4%;
+			    
+			}
+			.right_icon a{color: #fff;}
+			section{
+			    display: -webkit-box;
+			     width: 100%; 
+			    height: 2rem;
+			    background: #fff;
+			}
+			section a{
+			    -webkit-box-flex: 1;
+			    text-align: center;
+			    display: block;
+			}
+			
+			section a i{
+			    border-radius: 100%;
+			    width: .8rem;
+			    background: #2fb8ce;
+			    margin: .35rem auto .2rem auto;
+			    display: block;
+			    font-size: .35rem;
+			    color: #fff;
+			    height: .8rem;
+			    line-height: .8rem;
+			}
+			aside{
+			    margin-top: .2rem;
+			}
+			aside ul{
+			    font-size: .3rem;
+			    line-height: .8rem;
+			    color: #000;
+			}
+			aside ul li{
+			    text-align: left;
+			    width: 96%;
+			    margin: 0 auto;
+			    background: #fff;
+			    padding: 0 2%;
+			}
+			aside ul li  a i{
+			     font-size: .35rem; 
+			    text-align: center;
+			    width: .7rem;
+			    display: inline-block;
+			}
+			footer{height: 1rem;position: fixed;bottom: 0;left: 0;width: 100%;background: #f9f9f9;border-top: 1px solid #eee;}
+			footer a{width:33%;float: left;text-align: center;line-height: .35rem;margin-top: .2rem;}
+			footer a i{display: block;}
+			.on{color: #f19d9d;}
+			
+			
+			
+			.icon {
+ 			 width: 1.5em;
+ 			 height: 1.5em;
+ 			vertical-align: -0.15em;
+  			fill: currentColor;
+ 		 overflow: hidden;
+	}
+	
+	.feet{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.feet a{
+    font-size: 20px;
+    padding: 10px;
+    /*padding-left: 40px;
+    padding-right: 40px;*/
+    color: gray;
+
+}
+.feet a:hover{
+    text-decoration: none;
+}
+.feet  span:hover{
+    color: orangered;
+    
+}
+	
+	
+		</style>
+	</head>
+	<body>
+		<header >
+			
+			<div class="user" >
+				<!--<img src="http://m.xxsy.net/NewCss/image/pic.jpg" style="height:60px;width:55px"> -->
+			</div>
+			
+			<div class="userinfo">
+
+				<p>姓名：{{userName}}</p>
+				<p>手机号：{{phoneNumber}}</p>
+			</div>
+			<div class="right_icon">
+				<a id="editTel" href="javascript:;" class="iconfont">&#xe7f5;</a>
+			</div>
+		</header>
+		
+</br>
+		</br>
+		<aside>
+			<ul>
+				<li style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);" id="babyBtn"><a href="javascript(void)" class="sp1"><i class="iconfont">&#xe60b;</i>宝宝信息<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
+				<li style="margin-top: .2rem;opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);">
+				<a href="javscript_3A;" class="sp2"><i class="iconfont">&#xe617;</i>个人预约记录<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
+			</ul>
+		</aside>
+		<div style="height: 1rem;"></div>
+		<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+					<!--<p>-->					
+						<a href="/HomePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
+						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
+						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxinfen"></use></svg><br><p style="font-size:12px">我的</p></a>
+					<!--</p>-->
+				</div>
+			</nav>
+		</div>
+		
+		
+
+		<script>
+			$('#babyBtn').click(function(){
+				window.location.href="/babyPage";
+			})
+			$('footer a').click(function(){
+				$(this).addClass('on').siblings().removeClass('on');
+			});
+			$('#editTel').click(function(){
+				alert('手机号功能修改寻找短信合作人中,敬请期待!');
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$/NZDMySqlConnect.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/mysql.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/alibaba" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/bootstrap" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/css/iconfont.ttf" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/static/img" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/layer" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/mobiscroll" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/tp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/index.html" charset="GBK" />
+  </component>
+</project>

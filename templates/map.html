@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <title>高德中线规则DEMO</title>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.12&key=0aa312da1271a2b896f35342b04bf939"></script>
+    <style>
+        #container {
+            width: 100%;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container"></div>
+
+    <script>
+        var map = new AMap.Map('container', {
+            zoom: 19, //级别
+            center: [121.2604000000, 30.1589300000], //中心点坐标
+            viewMode: '3D' //使用3D视图
+        });
+
+        var infoWindow = new AMap.InfoWindow({ //创建信息窗体
+            isCustom: true, //使用自定义窗体
+            content: '<div>这是奶珍多项目显示的地方</div>', //信息窗体的内容可以是任意html片段
+            offset: new AMap.Pixel(16, -45)
+        });
+        var onMarkerClick = function(e) {
+            infoWindow.open(map, e.target.getPosition()); //打开信息窗体
+            //e.target就是被点击的Marker
+        }
+        var marker = new AMap.Marker({
+            position: [121.2604000000, 30.1589300000]
+        })
+        map.add(marker);
+        marker.on('click', onMarkerClick); //绑定click事件
+
+        //用户定位 信息
+        /*
+                mapObj = new AMap.Map('container');
+                mapObj.plugin('AMap.Geolocation', function() {
+                    geolocation = new AMap.Geolocation({
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0,
+                        convert: true,
+                        showButton: true,
+                        buttonPosition: 'LB',
+                        buttonOffset: new AMap.Pixel(10, 20),
+                        showMarker: true,
+                        showCircle: true,
+                        panToLocation: true,
+                        zoomToAccuracy: true
+                    });
+                    mapObj.addControl(geolocation);
+                    geolocation.getCurrentPosition();
+                    AMap.event.addListener(geolocation, 'complete', onComplete);
+                    AMap.event.addListener(geolocation, 'error', onError);
+                });
+        */
+    </script>
+
+</body>
+
+</html>

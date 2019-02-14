@@ -1,0 +1,297 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<title>管理中心</title>
+<script type="text/javascript" src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+<link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+	<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/font-awesome.min.css")}}/>
+<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/build.css")}}/>
+<link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+<link href={{url_for("static",filename="css/base.css")}} rel="stylesheet" type="text/css" /><!--公用样式-->
+<link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/11css.css")}}>
+
+<style type="text/css">
+html, body {
+	height: 100%
+}
+
+body {
+	margin: 0;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	 -webkit-font-smoothing: antialiased
+}
+
+button {
+	display: inline-block;
+	text-decoration: none;
+	padding: 0.8em 2.6em;
+	margin: 20px 10px 0 0;
+	outline: 0;
+	border: 0;
+	overflow: visible;
+	cursor: pointer;
+	color: #fff;
+	background: #5185a8;
+	font-family: Arial, sans-serif, verdana;
+	font-size: 14px;
+	font-weight: 100;
+	 -webkit-transition: background 0.3s ease-out;
+	 -moz-transition: background 0.3s ease-out;
+	 -o-transition: background 0.3s ease-out;
+	transition: background 0.3s ease-out
+
+
+}
+
+button:hover {
+	background: #34566d
+}
+
+input {
+	width: 100%;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: #fff;
+	font-family: Arial, sans-serif, verdana;
+	text-shadow: none;
+	color: #000;
+	font-size: 15px;
+	 -webkit-appearance: none;
+	 -webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.demo-main-cont {
+	height: 100%
+}
+
+.mbsc-sc-itm {
+	text-align: center !important
+}
+
+.buttonClass{
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, .2);
+border-radius: 6px;
+
+}
+
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+ .manage-content{
+  position: relative;
+  background-color: #fff;
+   -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+
+
+}
+ .manage-button{
+ background-color: #FF7171;
+ color:white;
+
+ }
+</style>
+</head>
+<body class="">
+		<div class="" role="document">
+			<div class="manage-content"  >
+				<div class="modal-header" style="text-align: center; color: #FF7171" >
+					<h2 class="modal-title" id="" style="font-size:18px">功能面板</h2>
+				</div>
+				<div class="modal-body " >
+					<div class="btn-toolbar" role="toolbar" style="padding-left:10%"  >
+					<div class="btn-group" >
+   						 <button type="button"  class="btn btn-default manage-button " id="reservationRecordBtn"   style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px"  >预约记录</button>
+	    				<button type="button" class="btn btn-default  manage-button" id="businessBtn"  style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px" >项目管理</button>
+	    				<button type="button" class="btn btn-default manage-button" id="managementBtn"   style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px" >人员管理</button>
+ 					</div>
+ 					<div class="btn-group">
+   						 <button type="button" class="btn btn-default manage-button" id="workNumberBtn"  style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px" >人数管理</button>
+    					<button type="button" class="btn btn-default manage-button"  id="msgBtn"  style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px" >消息记录</button>
+    					<button type="button" class="btn btn-default manage-button" id="storeBtn"  style=" -moz-border-radius: 6px;   -webkit-border-radius: 6px" >店铺管理</button>
+ 					</div>
+					</div>
+					<br>
+					<br>
+				</div>
+			</div>
+				<table class="table">
+     			 <tbody>
+      			  <tr>
+       		 		  <td><h4>今日预约</h4></td>
+       				 </tr>
+      			</tbody>
+				</table>
+			<!-- 预约详情 -->
+				<ul class="my-biji-view">
+{% if results %}
+       {% for i in results %}
+
+            <li>
+		      <div class="index  in">
+                    <div class="index_box">
+                            <div class="index_icon">
+                                 <div class="icon_h"></div>
+                                 <div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">
+            							<h2 class="news-Title">门店:{{i[10]}}| 客户姓名：{{i[8]}}</h2>
+           							 <p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>{{i[2]}}</b></span><span class="num" style="color: #FF7171" >展开</span></p>
+
+                                 </div>
+                            </div>
+                    </div>
+            </div>
+
+
+			</li>
+			{% endfor %}
+				</ul>
+    	{% else %}
+ 		<div class="index">
+                    <div class="index_box">
+                            <div class="index_icon">
+                                 <div class="icon_h"></div>
+                                 <div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">
+            							<h2 class="news-Title">门店:今日暂无| 客户姓名：今日暂无</h2>
+           							 <p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>今日暂无</b></span><span class="num" style="color: #FF7171"></span></p>
+
+                                 </div>
+                            </div>
+                    </div>
+            </div>
+
+
+{% endif %}
+
+		 <!--<div class="index">-->
+                    <!--<div class="index_box">-->
+                            <!--<div class="index_icon">-->
+                                 <!--<div class="icon_h"></div>-->
+                                 <!--<div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">-->
+
+
+            							<!--<h2 class="news-Title">门店:奶珍多 客户姓名：王小胖</h2>-->
+           							 <!--<p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>2019-01-05 10:00 上午</b></span><span class="num" style="color: #FF7171">展开</span></p>-->
+
+
+
+                                 <!--</div>-->
+
+                            <!--</div>-->
+
+
+                    <!--</div>-->
+
+            <!--</div>-->
+		 <!--<div class="index">-->
+                    <!--<div class="index_box">-->
+                            <!--<div class="index_icon">-->
+                                 <!--<div class="icon_h"></div>-->
+                                 <!--<div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">-->
+
+
+            							<!--<h2 class="news-Title">门店:奶珍多 客户姓名：王小胖</h2>-->
+           							 <!--<p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>2019-01-05 10:00 上午</b></span><span class="num" style="color: #FF7171">展开</span></p>-->
+
+
+
+                                 <!--</div>-->
+
+                            <!--</div>-->
+
+
+                    <!--</div>-->
+
+            <!--</div>-->
+
+  <!--<article>-->
+        <!--<ul class="list-thelist">-->
+        <!--<li class="clearfix">-->
+
+            <!--<a href="content.php@id=10067254&boardid=1">-->
+            	<!--<h2 class="news-Title">门店:奶珍多 客户姓名：王小胖</h2>-->
+            <!--<p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>2019-01-05 10:00 上午</b></span><span class="num" style="color: #FF7171">展开</span></p>-->
+            <!--</a>-->
+
+        <!--</li>-->
+
+
+
+        <!--<li class="clearfix">-->
+            <!--<a href="content.php@id=10067254&boardid=1">-->
+            	<!--<h2 class="news-Title">门店:奶珍多 客户姓名：王小胖</h2>-->
+            <!--<p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>2019-01-05 10:00 上午</b></span><span class="num" style="color: #FF7171">展开</span></p>-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="clearfix">-->
+            <!--<a href="content.php@id=10067254&boardid=1">-->
+            	<!--<h2 class="news-Title">门店:奶珍多 客户姓名：王小胖</h2>-->
+            <!--<p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>2019-01-05 10:00 上午</b></span><span class="num" style="color: #FF7171">展开</span></p>-->
+            <!--</a>-->
+        <!--</li>-->
+       <!--</ul>-->
+        <!--&lt;!&ndash;<div class="my-loading-box" id="addMore">&ndash;&gt;-->
+            <!--&lt;!&ndash;<span><b class="loading"></b>更多内容&hellip;&hellip;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</article>&lt;!&ndash; /帖子列表&ndash;&gt;-->
+		</div>
+
+	<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+					<!--<p>-->
+						<a href="/HomePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
+						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanli-"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
+						<a href="/personPage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxin"></use></svg><br><p style="font-size:12px">我的</p></a>
+					<!--</p>-->
+				</div>
+			</nav>
+	</div>
+<script>
+	$("#managementBtn").click(function(){
+		window.location.href="/manageEditPage";
+	});
+
+	$("#reservationRecordBtn").click(function(){
+		window.location.href="/reservationRecordPage";
+	});
+		$("#businessBtn").click(function(){
+		window.location.href="/businessListPage";
+	});
+		$("#storeBtn").click(function(){
+		window.location.href="/storePage";
+	});
+	$("#workNumberBtn").click(function(){
+		window.location.href="/workNumberPage";
+	});$("#msgBtn").click(function(){
+		window.location.href="/msgPage";
+	});
+
+	$(".num").click(function(){
+		alert("已经展开,暂无详情")
+	});
+
+</script>
+
+
+</body>
+</html>

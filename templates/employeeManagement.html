@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<title>人员管理</title>
+<script type="text/javascript" src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+<link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+ <script type="text/javascript" src={{url_for("static",filename="bootstrap/js/bootstrap.min.js")}}></script>
+<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/font-awesome.min.css")}}/>
+<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/build.css")}}/>
+<link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+<link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/base.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/employeeManagement.css")}}>
+<script src={{url_for("static",filename="layer/mobile/layer.js")}}></script>
+</head>
+<body class="">
+		<div class="" role="document" >
+		<button type="button" class="list-group-item" data-toggle="modal" data-target="#addEmployeeModal" style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);">新增人员</button>
+		</br>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel" style="text-align: center">新增人员</h4>
+            </div>
+            <div class="modal-body">
+				<form   method="POST"  action="/addEmployeeManagement" id="employeeInfoForm">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">人员名称:</label>
+                         <div class="radio-inline" >
+                        <input type="text" class="form-control" id="recipient-name" placeholder="请输入新增人员名称"  name="employeeName">
+                        </div>
+                    </div>
+            
+                    
+                    <div class="form-group">
+                        <label  class="control-label">人员职位:</label>
+                         <div class="radio-inline" >
+                        <!--<input type="text" class="form-control" id="authCode" placeholder="请输入新增人员职业" name="authCode">-->
+                                <select id="authCode" class="form-control" name="authCode">
+		                            <option value="m" selected="selected">职员</option>
+		                            <option  value="asm">副店长</option>
+		                        </select>
+                       </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label  class="control-label">联系电话:</label>
+                        <div class="radio-inline" >
+                        <input type="text" class="form-control" id="tel" placeholder="请输入新增人员联系电话" name="tel">
+                        </div>
+                       
+                    </div>
+                     <div class="form-group">
+                        <label  class="control-label">所在地点:</label>
+                        <div class="radio-inline" >
+                            <select id="location" class="form-control" name="location">
+		                        <option value="1" selected="selected">奶珍多一号店</option>
+		                        <option  value="2">奶珍多二号店</option>
+		                        </select>
+                        </div>
+                    </div>
+                    
+                </form>
+            
+            
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none" id="sendBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+			<h4>当前人员</h4>
+	
+			<hr>	
+    <article>
+        <ul class="list-thelist">
+            {% for i in results %}
+             <li>
+                 <button  type="button" class="list-group-item myli" data-toggle="modal" data-target="#editEmployeeModal"   >
+                    <p class="news-Intro" style="line-height: 24px" >
+                    <span class="user" style="color: #2A2A2A;font-size: 20px;width:33%"><b>{{ i[2] }}</b></span>
+                     <span class="num" style="color: #aaaeb3;font-size: 16px;width:33%">{{ i[8] }}</span></p>
+                     <span  style="display:none"><b>{{ i[7] }}</b></span>
+                     <span  style="display:none"><b>{{ i[3] }}</b></span>
+                     <span  style="display:none"><b>{{ i[0] }}</b></span>
+                     <span  style="display:none"><b>{{ i[4] }}</b></span>
+
+                 </button>
+             </li>
+            {% endfor %}
+       </ul>       
+    </article>
+<br><br><br>
+       <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModalLabel" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="0" style="text-align: center">编辑人员</h4>
+
+            </div>
+            <div class="modal-body">
+				<form   method="POST"  action="" id="employeeInfoEditForm">
+                     <input type="hidden" class="form-control" id="editId"  name="editId">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">人员名称:</label>
+                         <div class="radio-inline" >
+                        <input type="text" class="form-control" id="editName" placeholder="请输入人员名称"  name="editName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">人员职位:</label>
+                         <div class="radio-inline" >
+                        <!--<input type="text" class="form-control" id="editAu" placeholder="请输入新增人员职业" name="authCode">-->
+                                <select id="editAu" class="form-control" name="editAu">
+		                            <option value="m" selected="selected">职员</option>
+		                            <option  value="asm">副店长</option>
+                                    <option  value="sm">店长</option>
+		                        </select>
+                       </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="control-label">联系电话:</label>
+                        <div class="radio-inline" >
+                        <input type="text" class="form-control" id="editTel" placeholder="请输入新增人员联系电话" name="editTel">
+                        </div>
+
+                    </div>
+                     <div class="form-group">
+                        <label  class="control-label">所在地点:</label>
+                        <div class="radio-inline" >
+                            <select id="editLocation" class="form-control" name="editLocation">
+		                        <option value="1" >奶珍多一号店</option>
+		                        <option  value="2">奶珍多二号店</option>
+		                        </select>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="delBtn">移除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none" id="editBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+					    <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+				</div>
+			</nav>
+		</div>
+        </div>
+<script>
+	$("#sendBtn").on("click", function() {
+		//取值
+        $.ajax({
+            	type:"Post",
+				url:"/addEmployeeManagement",
+            	dataType:'json',
+            	data:$("#employeeInfoForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		alert("返回的信息"+msg);
+            		}
+	        });
+		    $('#addEmployeeModal').modal('hide')
+		    location.reload();
+	    });
+	
+
+
+$(".myli").on("click", function() {
+		//取值
+		var name=$(this).find("span").eq(0).text();
+		var location=$(this).find("span").eq(5).text();
+		var au=$(this).find("span").eq(2).text();
+		var tel=$(this).find("span").eq(3).text();
+		var id=$(this).find("span").eq(4).text();
+       // alert('已经选中location'+location);
+        $('#editEmployeeModal').on('show.bs.modal', function () {
+           $("#editName").val(name);
+
+            $("#editLocation").val(location);
+
+            $("#editAu").val(au);
+            $("#editTel").val(tel);
+            $("#editId").val(id);
+        })
+	});
+
+$("#editBtn").on("click", function() {
+
+        $.ajax({
+            	type:"Post",
+				url:"/editEmployee",
+            	dataType:'json',
+            	data:$("#employeeInfoEditForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		alert("返回的信息"+msg);
+            		}
+	});
+		$('#editEmployeeModal').modal('hide')
+		location.reload();
+	})
+
+$("#delBtn").on("click", function() {
+          var  delId=$("#editId").val();
+         var data = {
+            "delId": delId
+            }
+         layer.open({
+             content: '您确定要移除该员工么'
+             ,btn: ['确定', '取消']
+         ,yes: function(index){
+           $.ajax({
+            	type:"Post",
+				url:"/delEmployee",
+            	dataType:'json',
+            	data:data,
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+            	 <!--layer.open({-->
+                    <!--content: 'hello layer'-->
+                     <!--,skin: 'msg'-->
+                     <!--,time: 2 //2秒后自动关闭-->
+                <!--});-->
+           		<!--&lt;!&ndash;alert("返回的信息"+msg);&ndash;&gt;-->
+           		location.reload();
+            		}
+	});
+
+          <!--location.reload();-->
+         layer.close(index);
+    }
+  });
+
+        $('#editEmployeeModal').modal('hide')
+
+});
+</script>
+</body>
+</html>

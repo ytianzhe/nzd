@@ -1,0 +1,559 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>奶珍多</title>
+<!--<link rel="icon" href="/static/img/lg_nzd.jpg">-->
+<!--<link rel="stylesheet" href="/static/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css">-->
+
+<!--<script type="text/javascript" src="/static/bootstrap/js/jquery.min.js" charset="UTF-8"></script>-->
+<!--<script src="/static/mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js"></script>-->
+<!--<script src="/static/alibaba/js/iconfont.js"></script>-->
+
+<link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+<link rel="stylesheet" href={{url_for("static",filename="mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css")}}>
+<script src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+<script src={{url_for("static",filename="mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js")}}></script>
+<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+<link rel="stylesheet" href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+<script src={{url_for("static",filename="layer/mobile/layer.js")}}></script>
+<script src={{url_for("static",filename="bootstrap/js/bootstrap.min.js")}}></script>
+<!--<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+<!--<link rel="stylesheet" href="/static/css/mishouye.css">-->
+<!--<script src="/static/layer/mobile/layer.js"></script>-->
+<!--<script src="/static/bootstrap/js/bootstrap.min.js"></script>-->
+ <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.12&key=0aa312da1271a2b896f35342b04bf939"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#msg1").click(function(){
+  $("p").hide();
+  });
+  $("#show").click(function(){
+  $("p").show();
+  });
+});
+</script>
+
+<style>
+  #container {
+            width: 100%;
+            height: 300px;
+        }
+
+
+.demo1{
+padding-top:5px;
+padding-left:20px;
+height: 50px;
+background-color:  #FF7171;
+}
+
+.form-control-xxx {
+  display: block;
+  width:200px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display:inline;
+}
+
+.img2{
+    width: 100%;
+
+    background-color: powderblue;
+}
+.img2 img{
+    width: 100%;
+}
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+	<div>
+		<div>
+		<!--导航条-->
+		<div class="sbtn navbar navbar-default navbar-fixed-top">
+			 <div class="input-group">
+			 	<!--<p style="color: white"><b>{{ cN }} {{ID}}</b></p>-->
+			 	<p style="color: white"><b>{{ msg }} </b></p>
+			</div>
+		</div>
+		</div>
+
+		<div class="zaobao">
+			<!--<img src="/static/tp/zaobao.png" alt="zao" class="zaoimg">-->
+			<img src={{url_for("static",filename="tp/zaobao.png")}} alt="zao" class="zaoimg">
+			<span>1</span>
+		</div>
+				<div class="lunbo">
+			<div id="carousel-example-generic" class="carousel slide"
+				data-ride="carousel">
+				<ol class="carousel-indicators" style="bottom: 1px;left: 90%;">
+					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				</ol>
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<!--<img src="/static/img/123.png" alt="tu01">-->
+						<img src={{url_for("static",filename="img/123.png")}} alt="tu01">
+
+
+
+					</div>
+					<div class="item">
+						<!--<img src="/static/img/123.png" alt="tu02">-->
+						<img src={{url_for("static",filename="img/123.png")}} alt="tu02">
+
+					</div>
+					<!--...-->
+				</div>
+
+			</div>
+		</div>
+
+		<div class="img2">
+			 <a href="/normal/orderOnline.html">
+				 <!--<img src="/static/img/group1.png" alt="group" border="0">-->
+				 <img src={{url_for("static",filename="img/group1.png")}} alt="group" border="0">
+			 </a>
+
+		</div>
+
+
+    <div id="container"></div>
+
+
+
+
+		<div class="demo1">
+			<button  type="button" class="list-group-item" onclick="showMsg()" style="width:180px">员工登入测试按钮</button>
+		</div>
+		<div class="demo1">
+			<button type="button" class="list-group-item" onclick="showCustomer()" style="width:180px">客户登入测试按钮</button>
+		</div>
+		<div class="demo1">
+			<button type="button" class="list-group-item" data-toggle="modal" data-target="#exampleModal" style="width:180px">手机绑定测试按钮</button>
+		</div>
+
+		<div class="demo1">
+			<button type="button" class="list-group-item"  style="width:180px" id="msgBtn" >详细信息绑定3测试按钮</button>
+		</div>
+
+		<div class="demo1">
+			<button type="button" class="list-group-item" onclick="showCustomerInfo()" style="width:180px">客户信息搜索</button>
+		</div>
+		<div class="demo1">
+			<button type="button" class="list-group-item" id="orderBtn" style="width:180px">在线预约功能</button>
+		</div>
+	<br>
+<br>
+<br>
+<br>
+
+
+    <div class="" id="msg1" style="left:15px; top:350px;position:absolute;display:none;width:90%" >
+		<div class="" role="document">
+			<div class="modal-content">
+				<div class="modal-header" style="text-align: center; color: #FF7171">
+					<h4 class="modal-title" id="您好，请填写你的详细信息">您好，请填写你的详细信息</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="control-group">
+							 <label for="recipient-name" class="control-label">客户名称:</label>
+                      		  <input type="text" class="form-control" id="customName">
+						</div>
+						<div class="form-group">
+                        <label for="recipient-name" class="control-label">宝宝名称:</label>
+                        <input type="text" class="form-control" id="BaoName">
+                    	</div>
+						<div class="control-group">
+                      	  <label for="recipient-name" class="control-label">出生日期:</label>
+                        	 <input type="text" id="test1" class="form-control" placeholder="" />
+                  		  </div>
+                  		  <br>
+                  		  <div>
+                  		    <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none;">提交</button>
+			 				<button type="button" class="btn btn-default" id="closeMsg1">关闭</button>
+							</div>
+					</form>
+				</div>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+  <div class="modal fade" id="detailedInformationModal" tabindex="-1" role="dialog" aria-labelledby="detailedInformationModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel2">您好，请填写你的详细信息</h4>
+            </div>
+            <div class="modal-body">
+				<form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">客户名称:</label>
+                        <input type="text" class="form-control" id="userName">
+                    </div>
+            		<div class="form-group">
+                        <label for="recipient-name" class="control-label">宝宝名称:</label>
+                        <input type="text" class="form-control" id="BaoBaoName">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">出生日期:</label>
+
+                         <input type="text" id="test2" class="form-control" placeholder="" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">手机绑定</h4>
+            </div>
+            <div class="modal-body">
+
+				<form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">手机号:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">验证码:</label>
+                        <input type="text" class="form-control" id="authCode" placeholder="验证码">
+                        <button class="btn btn-primary" type="button"  onclick="send()" style="background-color:#FFA8A8;border:none;">发送验证码</button>
+                    </div>
+                </form>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<br>
+	<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+					<!--<p>-->
+						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui"></use></svg><br><p style="font-size:12px">首页</p> </a>
+						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
+						<a href="/personPage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxin"></use></svg><br><p style="font-size:12px">我的</p></a>
+					<!--</p>-->
+				</div>
+			</nav>
+		</div>
+
+	</div>
+
+
+	<script type="text/javascript">
+	function showCustomerInfo(){
+	$.ajax({
+
+            	type:"Post",
+				url:"/da",
+            	dataType:'json',
+            	success:function(result){
+            	var date = JSON.stringify(result.data);    //返回的数据
+           		 alert("返回的信息"+date);
+
+            		}
+
+	});
+	}
+
+
+	$("#closeMsg1").click(function(){
+		if($("#msg1").css("display")!="none"){
+			$("#msg1").hide(500);
+		}
+	});
+
+
+
+	$("#msgBtn").click(function(){
+				if($("#msg1").css("display")=="none"){
+					$("#msg1").show(500);
+				}else{
+					$("#msg1").hide(500);
+				}
+			});
+
+
+
+	$("#orderBtn").click(function(){
+		window.location.href="/orderPage";
+			});
+
+
+
+	$("#test1").focus(function(){
+		  document.activeElement.blur();
+		});
+
+
+	$(function () {
+	        var now = new Date(),
+	            min = new Date(now.getFullYear() - 4, now.getMonth(), now.getDate());
+	            max = new Date(now.getFullYear() + 4, now.getMonth(), now.getDate());
+	        var instance = mobiscroll.date('#test1', {
+	            lang: 'zh',             //语言
+	            display: 'bottom',      //在页面的什么位置显示
+	            max: max,        //可供选择的最大日期
+	            min: min,        //可供选择的最小日期
+	            theme:'ios',     //主题，插件的皮肤效果，此处选择ios，为了模仿ios的select效果
+	            dateFormat:'yy-mm-dd'      //日期格式
+	        });
+
+
+	    });
+
+
+
+	function moreInfo(){
+		window.location.href="normal/birth.html";
+
+	}
+
+	//detailedClick 新版点击详细信息
+
+
+	function showMsg(){
+		  layer.open({
+			    content: '你好，职员张三!</br>欢迎使用奶珍多在线预约系统'
+			    ,btn: '我知道了'
+
+			  });
+
+	}
+
+
+
+
+
+
+	function showCustomer(){
+			$.ajax({
+
+            	type:"POST",
+				url:"/customerLogin2?openid=1059823951",
+            	dataType:'json',
+            	success:function(result){
+            	var date = JSON.stringify(result.data);    //返回的数据
+            	<!--var obj1 = eval(date);-->
+					  layer.open({
+			    		<!--content: '你好，客户'+obj1[0].customerName+'</br>欢迎使用奶珍多在线预约系统'-->
+			    		content: '你好，客户'+date+'</br>欢迎使用奶珍多在线预约系统'
+			   		 ,btn: '我知道了'
+
+					  });
+
+            		}
+
+			});
+
+
+
+	}
+
+	function showMobile(){
+		  //自定义标题风格
+		  layer.open({
+
+			skin: 'layui-layer-rim', //加上边框
+			area: ['600px', '470px'], //宽高
+		    title: [
+		      '手机绑定',
+		      //'background-color: #FF4351; color:#fff;'
+		    ],
+		    content:"demo.html"
+
+		  });
+
+	}
+
+
+	function  send(){
+		  layer.open({
+			    content: '验证码已发送'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+
+
+	}
+
+
+
+
+	</script>
+    <script>
+        var map = new AMap.Map('container', {
+            zoom: 15, //级别
+            center: [121.267193,30.161968], //中心点坐标
+            viewMode: '3D' //使用3D视图
+        });
+
+        var infoWindow = new AMap.InfoWindow({ //创建信息窗体
+            isCustom: true, //使用自定义窗体
+            content: '<div>这是奶珍多项目显示的地方</div>', //信息窗体的内容可以是任意html片段
+            offset: new AMap.Pixel(16, -45)
+        });
+        var onMarkerClick = function(e) {
+            infoWindow.open(map, e.target.getPosition()); //打开信息窗体
+            //e.target就是被点击的Marker
+        }
+        var marker = new AMap.Marker({
+            position: [121.267193,30.161968]
+        })
+        map.add(marker);
+        marker.on('click', onMarkerClick); //绑定click事件
+
+        //用户定位 信息
+        /*
+                mapObj = new AMap.Map('container');
+                mapObj.plugin('AMap.Geolocation', function() {
+                    geolocation = new AMap.Geolocation({
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0,
+                        convert: true,
+                        showButton: true,
+                        buttonPosition: 'LB',
+                        buttonOffset: new AMap.Pixel(10, 20),
+                        showMarker: true,
+                        showCircle: true,
+                        panToLocation: true,
+                        zoomToAccuracy: true
+                    });
+                    mapObj.addControl(geolocation);
+                    geolocation.getCurrentPosition();
+                    AMap.event.addListener(geolocation, 'complete', onComplete);
+                    AMap.event.addListener(geolocation, 'error', onError);
+                });
+        */
+    </script>
+</body>
+</html>
+
+<!--
+
+	<script>
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // 触发事件的按钮
+        var recipient = button.data('whatever') // 解析出data-whatever内容
+        var modal = $(this)
+//        modal.find('.modal-title').text('Message To ' + recipient)
+       		 modal.find('.modal-title').text('手机绑定')
+//        modal.find('.modal-body input').val(recipient)
+    })
+</script>
+
+
+
+<form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">手机号:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">验证码:</label>
+                    	 <div class="form-inline row">
+          					<input type="text" class="form-control" id="authCode" placeholder="验证码">
+          					<button class="btn btn-primary">发送验证码</button>
+     					</div>
+
+                         <input type="text" class="form-control" id="authCode" placeholder="验证码">
+                    </div>
+                </form>
+
+
+
+<form class="form-horizontal" role="form">
+  					<div class="form-group">
+   					 <label class="col-sm-2 control-label">Email</label>
+   				 <div class="col-sm-10">
+      				<p class="form-control-static">email@example.com</p>
+   				 </div>
+  				</div>
+ 				 <div class="form-group">
+  			  <label for="inputPassword" class="col-sm-2 control-label">密码</label>
+    			<div class="col-sm-10">
+     			 <input type="password" class="form-control" id="inputPassword" placeholder="请输入密码">
+    			</div>
+ 			 </div>
+</form>
+
+
+  -->

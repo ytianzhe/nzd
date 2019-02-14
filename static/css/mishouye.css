@@ -1,0 +1,133 @@
+.sbtn{
+height: 50px;
+width: 100%;
+border: 0px;
+background-color: #FF7171;
+display: flex;
+flex-wrap: nowrap;
+justify-content: space-between;
+padding-top: 10px;
+}
+img01{
+   height: 10px; 
+}
+/*.input-group .ss{
+    background-color: white;
+}*/
+.sbtn .input-group .btn01{
+    float: left;
+}
+
+.sbtn .input-group .btn02{
+    float: right;
+    background-color: transparent;
+    border: 0px;
+    font-size: 18px;
+    color: white;
+ }
+ /*.input-group .btn01{
+     width: 50%;
+ }*/
+.lunbo{
+/*height: 50px;*/
+width: 100%;
+background-color: lightskyblue;
+}
+.lunbo img{
+    width: 100%;
+}
+.zaobao{
+height: 50px;
+background-color: lightseagreen;
+}
+.zaoimg{
+    height: 50px;
+}
+.zaobao span{
+    font-size: 14px;
+    padding: 10px;
+    border-left: 1px solid gray;
+}
+.chanpin{
+/*height: 50px;*/
+width: 100%;
+background-color: lightcyan;
+display: flex;
+
+}
+.tp01{
+    width: 50%;
+    background-color: powderblue;
+    /*给盒子设置边框*/
+    /*border-left: 5px solid white;*/
+}
+.tp01 img{
+    width: 100%;
+    margin-bottom: 3px;
+}
+.tp02{
+    width:50%;  
+    background-color: lemonchiffon;
+}
+.tp02 .img01{
+    width: 100%;
+    height: 50%;
+}
+.tp02 .img02{
+    width: 100%;
+    height:50%;
+}
+.tp02 .img01 img{
+    width: 100%;
+    margin-left: 3px;
+    /*height: 100%;*/
+}
+.tp02 .img02 img{
+    width: 100%;
+    margin-top: 3px;
+    margin-left: 3px;
+    /*height: 100%;*/
+}
+.tp03{
+    width: 100%;
+    margin-top: 10px;
+    background-color: powderblue;  
+}
+.tp03 img{
+    width: 100%;
+}
+.tp04{
+    width: 100%;
+    background-color: powderblue;  
+}
+.tp04 img{
+    width: 100%;
+}
+.tp05{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 80px;
+}
+.tp05 img{
+    width: 100%;
+}
+.feet{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.feet a{
+    font-size: 20px;
+    padding: 10px;
+    /*padding-left: 40px;
+    padding-right: 40px;*/
+    color: gray;
+
+}
+.feet a:hover{
+    text-decoration: none;
+}
+.feet  span:hover{
+    color: orangered;
+    
+}

@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<title>管理中心</title>
+<script type="text/javascript" src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+<link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+	<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/font-awesome.min.css")}}/>
+<link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/build.css")}}/>
+<link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+<link href={{url_for("static",filename="css/base.css")}} rel="stylesheet" type="text/css" /><!--公用样式-->
+<link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/11css.css")}}>
+
+<style type="text/css">
+html, body {
+	height: 100%
+}
+
+body {
+	margin: 0;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	 -webkit-font-smoothing: antialiased
+}
+
+button {
+	display: inline-block;
+	text-decoration: none;
+	padding: 0.8em 2.6em;
+	margin: 20px 10px 0 0;
+	outline: 0;
+	border: 0;
+	overflow: visible;
+	cursor: pointer;
+	color: #fff;
+	background: #5185a8;
+	font-family: Arial, sans-serif, verdana;
+	font-size: 14px;
+	font-weight: 100;
+	 -webkit-transition: background 0.3s ease-out;
+	 -moz-transition: background 0.3s ease-out;
+	 -o-transition: background 0.3s ease-out;
+	transition: background 0.3s ease-out
+
+
+}
+
+button:hover {
+	background: #34566d
+}
+
+input {
+	width: 100%;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: #fff;
+	font-family: Arial, sans-serif, verdana;
+	text-shadow: none;
+	color: #000;
+	font-size: 15px;
+	 -webkit-appearance: none;
+	 -webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.demo-main-cont {
+	height: 100%
+}
+
+.mbsc-sc-itm {
+	text-align: center !important
+}
+
+.buttonClass{
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, .2);
+border-radius: 6px;
+
+}
+
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+ .manage-content{
+  position: relative;
+  background-color: #fff;
+   -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+
+
+}
+ .manage-button{
+ background-color: #FF7171;
+ color:white;
+
+ }
+</style>
+</head>
+<body class="">
+
+  <article>
+     {% if results %}
+        <ul class="list-thelist">
+            {% for i in results %}
+            <li class="clearfix">
+                <p class="news-Intro"><span class="user" style="font-family:PingFang SC;color:#2A2A2A"><b class="mr10">预约成功通知</b></span><span style="float:right"><b>{{i[1]}}&nbsp;{{i[2]}}</b></span></p>
+            </li>
+            {% endfor %}
+       </ul>
+      {% else %}
+        <ul class="list-thelist">
+            <li class="clearfix">
+                <p class="news-Intro"><span class="user" style="font-family:PingFang SC;color:#2A2A2A"><b class="mr10">暂无记录</b></span><span style="float:right"><b>暂无</b></span></p>
+            </li>
+       </ul>
+
+
+
+
+      {% endif %}
+        <!--<div class="my-loading-box" id="addMore">-->
+            <!--<span><b class="loading"></b>更多内容&hellip;&hellip;</span>-->
+        <!--</div>-->
+    </article><!-- /帖子列表-->
+		</div>
+
+	<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+					<!--<p>-->
+							<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+					    <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+					<!--</p>-->
+				</div>
+			</nav>
+	</div>
+
+
+
+</body>
+</html>

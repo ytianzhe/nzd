@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<title>在线预约</title>
+    <script src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+    <link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+    <script src={{url_for("static",filename="bootstrap/js/bootstrap.min.js")}}></script>
+    <link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+<script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+    <link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+<link rel="stylesheet" href={{url_for("static",filename="css/employeeManagement.css")}}>
+
+
+<style type="text/css">
+html, body {
+	height: 100%
+}
+body {
+	margin: 0;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased
+}
+button {
+	display: inline-block;
+	text-decoration: none;
+	padding: 0.8em 2.6em;
+	margin: 20px 10px 0 0;
+	outline: 0;
+	border: 0;
+	overflow: visible;
+	cursor: pointer;
+	color: #fff;
+	background: #5185a8;
+	font-family: Arial, sans-serif, verdana;
+	font-size: 14px;
+	font-weight: 100;
+	-webkit-transition: background 0.3s ease-out;
+	-moz-transition: background 0.3s ease-out;
+	-o-transition: background 0.3s ease-out;
+	transition: background 0.3s ease-out
+}
+
+button:hover {
+	background: #34566d
+}
+
+input {
+	width: 100%;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: #fff;
+	font-family: Arial, sans-serif, verdana;
+	text-shadow: none;
+	color: #000;
+	font-size: 15px;
+	-webkit-appearance: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.demo-main-cont {
+	height: 100%
+}
+
+.mbsc-sc-itm {
+	text-align: center !important
+}
+
+
+
+
+
+.NumberDiv{
+float:left;
+width:33%;
+}
+
+ td{
+ text-align: center;
+ }
+ .timeTitle{
+ font-size: 32px;
+ color:#8A8A8A;
+ }
+ .timeNumber{
+  font-size: 100px;
+  color: #FF7171;
+ }
+ .newH3{
+ color:#2A2A2A;
+ font-size: 12px;
+ font-weight: normal;
+ margin:0;
+ font-family:"Microsoft YaHei", Helvetica, STHeiTi,"Helvetica Neue","微软雅黑",SimSun,sans-serif;
+ }
+</style>
+</head>
+<body class="">
+
+
+
+{% if results %}
+      <div class="" role="document" style="padding-top: 5%">
+			<div class="modal-content" >
+				<div class="modal-header" style="text-align: center; color: #FF7171">
+					<h3 class="modal-title newH3"  >今日上班人数</h3>
+				</div>
+                <div class="modal-body" style="height:370px;padding-top: 15%" >
+					<form id="editWorkerNumberForm">
+
+							<table style="width:100%"	>
+							<tr>
+							<td class="timeTitle">上午</td>
+							<td class="timeTitle">下午</td>
+							<td class="timeTitle">晚上</td>
+							</tr>
+							<tr id="tr1">
+                                <td class="timeNumber"> <span>{{results[2]}}</span></td>
+                                <td class="timeNumber"> <span>{{results[3]}}</span></td>
+                                <td class="timeNumber"> <span>{{results[4]}}</span></td>
+                                <td style="display:none"> <span>{{results[0]}}</span></td>
+							</tr>
+							</table>
+                    </form>
+				</div>
+               	</div>
+			<div>
+			    <button type="button"  class="" data-toggle="modal" data-target="#updateNumber"  style="width:100%;background-color: #FF7171 "  id="showEditModalBtn">更新人员</button>
+			</div>
+          </div>
+          {% else %}
+          <div class="" role="document" style="padding-top: 5%">
+			<div class="modal-content" >
+				<div class="modal-header" style="text-align: center; color: #FF7171">
+					<h3 class="modal-title newH3"  >今日上班人数</h3>
+				</div>
+
+				<div class="modal-body" style="height:370px;padding-top: 15%">
+					<form  >
+                        <input type="text" value="">
+							<table style="width:100%"	>
+							<tr>
+							<td class="timeTitle">上午</td>
+							<td class="timeTitle">下午</td>
+							<td class="timeTitle">晚上</td>
+							</tr>
+							<tr>
+							<td class="timeNumber">3</td>
+							<td class="timeNumber">3</td>
+							<td class="timeNumber">3</td>
+							</tr>
+							</table>
+                    </form>
+				</div>
+                	</div>
+			<div>
+			    <button type="button"  class="" data-toggle="modal" data-target="#addNumberModal"  style="width:100%;background-color: #FF7171 "  >增加当天人员设定</button>
+			</div>
+
+              </div>
+                {% endif %}
+
+
+
+
+<!-- 提示框 -->
+ <div class="modal fade" id="addNumberModal" tabindex="-1" role="dialog" aria-labelledby="aaaa">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >每日人数增加</h4>
+            </div>
+            <div class="modal-body">
+				<form id="addNumberForm">
+                    <div class="form-group">
+                        <label class="control-label">上午:</label>
+                        <input type="text" class="form-control" id="addMorning" placeholder="请输入上午上班人数" name="addMorning">
+                    </div>
+                    <div class="form-group">
+                         <label class="control-label">下午:</label>
+                        <input type="text" class="form-control" id="addAfternoon" placeholder="请输入下午上班人数" name="addAfternoon">
+                    </div>
+                     <div class="form-group">
+                         <label  class="control-label">晚上:</label>
+                        <input type="text" class="form-control" id="addEvening" placeholder="请输入晚上上班人数" name="addEvening">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none"  id="addWorkNumberBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- 提示框 -->
+ <div class="modal fade" id="updateNumber" tabindex="-1" role="dialog" aria-labelledby="aaaa">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">每日人数更新</h4>
+            </div>
+            <div class="modal-body" >
+				<form id="updateNumberForm">
+                    <input type="hidden" name="editId" id="editId">
+                    <div class="form-group">
+                        <label class="control-label">上午:</label>
+                        <input type="text" class="form-control" id="editMorning" name="editMorning" placeholder="请输入上午上班人数">
+                    </div>
+                    <div class="form-group">
+                         <label class="control-label">下午:</label>
+                        <input type="text" class="form-control" id="editAfternoon" name="editAfternoon" placeholder="请输入下午上班人数">
+                    </div>
+                     <div class="form-group">
+                         <label  class="control-label">晚上:</label>
+                        <input type="text" class="form-control" id="editEvening" name="editEvening" placeholder="请输入晚上上班人数">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" style="background-color:#FFA8A8;border:none"  id="editNumberBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+					    <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+				</div>
+			</nav>
+</div>
+	<script type="text/javascript">
+	function showNumber(){
+		alert("a");
+	}
+	$("#addWorkNumberBtn").click(function(){
+		 $.ajax({
+            	type:"Post",
+				url:"/addWorkerNumber",
+            	dataType:'json',
+            	data:$("#addNumberForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		alert("返回的信息"+msg);
+            		}
+	});
+		$('#addNumberModal').modal('hide')
+		location.reload();
+	});
+
+	$("#editNumberBtn").click(function(){
+		 $.ajax({
+            	type:"Post",
+				url:"/editWorkerNumber",
+            	dataType:'json',
+            	data:$("#updateNumberForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		alert("返回的信息"+msg);
+            		}
+	});
+		$('#addNumberModal').modal('hide')
+		location.reload();
+	});
+
+
+
+
+
+$("#showEditModalBtn").on("click", function() {
+		//取值
+		var morning=$("#tr1").find("span").eq(0).text();
+		var afternoon=$("#tr1").find("span").eq(1).text();
+		var evening=$("#tr1").find("span").eq(2).text();
+		var id=$("#tr1").find("span").eq(3).text();
+      //  alert('已经选中location'+morning+afternoon+evening+id);
+        $('#updateNumber').on('show.bs.modal', function () {
+           $("#editMorning").val(morning);
+            $("#editAfternoon").val(afternoon);
+            $("#editEvening").val(evening);
+            $("#editId").val(id);
+        })
+	});
+
+
+	</script>
+
+
+</body>
+</html>

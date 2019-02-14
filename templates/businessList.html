@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Modal</title>
+    <link href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
+    <link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
+    <script src={{url_for("static",filename="layer/mobile/layer.js")}}></script>
+
+    <link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/font-awesome.min.css")}}/>
+    <link rel="stylesheet" href={{url_for("static",filename="Font-Awesome/css/build.css")}}/>
+   <link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
+    <script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
+    <!--底层关键排版-->
+    <link rel="stylesheet" href={{url_for("static",filename="css/businessList.css")}}>
+
+</head>
+<body>
+        <div class="" role="document" style="padding:5px 5px 5px 5px;background-color:#f5f5f5" >
+		<button type="button" class="list-group-item" data-toggle="modal" data-target="#addBussinessModal" style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);">新增项目</button>
+        </div>
+<div class="panel panel-default" style="border:none">
+    <div class="panel-heading"   style="border:none">项目列表</div>
+    <div class="panel-body"  style="background-color:#f5f5f5">
+        <div class="list-group" role="group" aria-label="项目列表">
+            {% for i in results %}
+            <div class="businessClass">
+            <button type="button" class="list-group-item " data-toggle="modal" data-target="#exampleModal" >
+            <!--<button type="button" class="list-group-item " data-toggle="modal" data-target="#exampleModal" data-whatever={{i[1]}}>-->
+                <span  style="float:left;color: #2A2A2A;font-size: 16px;width:25%">{{ i[1] }}</span>
+                <span  style="float:right;color: #aaaeb3;font-size: 16px;width:15%">分钟</span>
+                <span  style="float:right;color: #aaaeb3;font-size: 16px;width:8%">{{ i[2] }}</span>
+                <span  style="display:none">{{ i[0] }}</span>
+            </button>
+            </div>
+            {% endfor %}
+            <br><br>
+            <!--<button type="button" class="list-group-item" data-toggle="modal" data-target="#exampleModal"-->
+                    <!--data-whatever="去世">去世-->
+            <!--</button>-->
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addBussinessModal" tabindex="-1" role="dialog" aria-labelledby="addBussinessModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >新增项目列表</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addBusinessForm">
+                    <div class="form-group">
+                        <label  class="control-label">项目名称:</label>
+                        <input type="text" class="form-control" id="addlistName" name="addlistName">
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">时长:(分钟)</label>
+                        <input type="text" class="form-control" id="addtime" name="addtime">
+                        <!--<textarea class="form-control" id="time"></textarea>-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addBussinessBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">编辑项目列表</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editBussinessForm">
+                     <input type="hidden" class="form-control" id="editId" name="editId">
+                    <div class="form-group">
+                        <label  class="control-label">项目名称:</label>
+                        <input type="text" class="form-control" id="listName" name="editlistName">
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">时长:(分钟)</label>
+                        <input type="text" class="form-control" id="time" name="editTime">
+                        <!--<textarea class="form-control" id="time"></textarea>-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                 <button type="button" class="btn btn-danger" id="delBtn">移除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"  id="editbusBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+         <div class="feet col-xs-12 col-sm-12 col-md-12">
+			<!--设置固定在底部-->
+			<nav class="navbar navbar-default navbar-fixed-bottom">
+				<div class="container feet">
+						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+					    <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+				</div>
+			</nav>
+		</div>
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+$("#addBussinessBtn").on("click", function() {
+
+        $.ajax({
+            	type:"Post",
+				url:"/addBussinessList",
+            	dataType:'json',
+            	data:$("#addBusinessForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);
+            	   location.reload();
+           		  <!--layer.open({-->
+			    <!--content: msg-->
+			    <!--,skin: 'msg'-->
+			    <!--,time: 2 //2秒后自动关闭-->
+			  <!--});-->
+            		}
+	});
+		//$('#addBussinessList').modal('hide')
+
+	})
+
+
+$("#editbusBtn").on("click", function() {
+
+        $.ajax({
+            	type:"Post",
+				url:"/editBussinessList",
+            	dataType:'json',
+            	data:$("#editBussinessForm").serialize(),
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		  <!--layer.open({-->
+			    <!--content: msg-->
+			    <!--,skin: 'msg'-->
+			    <!--,time: 2 //2秒后自动关闭-->
+			  <!--});-->
+            		}
+	});
+		//$('#addBussinessList').modal('hide')
+		location.reload();
+	})
+
+
+
+
+$(".businessClass").on("click", function() {
+
+		var listName=$(this).find("span").eq(0).text();
+		var time=$(this).find("span").eq(2).text();
+		var id=$(this).find("span").eq(3).text();
+        //alert('已经选中li'+listName+time);
+        $('#exampleModal').on('show.bs.modal', function () {
+             $("#listName").val(listName);
+            $("#time").val(time);
+            $("#editId").val(id);
+    })
+
+        })
+$("#delBtn").on("click", function() {
+          var  delId=$("#editId").val();
+         var data = {
+            "delId": delId
+            }
+         layer.open({
+             content: '您确定要移除该项目么'
+             ,btn: ['确定', '取消']
+         ,yes: function(index){
+           $.ajax({
+            	type:"Post",
+				url:"/delBussinessList",
+            	dataType:'json',
+            	data:data,
+            	success:function(result){
+            	var msg = JSON.stringify(result.msg);    //返回的数据
+           		location.reload();
+            		                }
+	                });
+                 layer.close(index);
+                                 }
+  });
+  } );
+</script>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>echarts</title>
+</head>
+
+<body>
+    <p>数据展示：
+        <input type="text" id ="NAME">
+        <input type="text" id ="AGE"></p>
+    <p>
+        <button id = "btn">点击获取</button>
+        <input type="text" id ="NAME2">
+        <input type="text" id ="AGE2"></p>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+	<script>
+        $.ajax({
+        url: "test_post/nn",
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            // alert(data.name + ":" + data.age);
+            $("#NAME").val(data.name);
+            $("#AGE").val(data.age);
+            console.log(data)}
+
+        })
+	</script>
+
+
+    <script>
+        $(function() {
+            // body...
+            $("#btn").click(function(){
+                $.ajax({
+                url: "test_post/nn",
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
+                // alert(data.name + ":" + data.age);
+                $("#NAME2").val(data.name);
+                $("#AGE2").val(data.age);
+                console.log(data)}
+
+                })
+            })
+        })
+    </script>
+
+</body>
+
+</html>

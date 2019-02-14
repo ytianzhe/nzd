@@ -1,0 +1,77 @@
+html, body {
+	height: 100%
+}
+body {
+	margin: 0;
+	padding: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased
+}
+
+
+button:hover {
+	background: #34566d
+}
+
+input {
+	width: 100%;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: #fff;
+	font-family: Arial, sans-serif, verdana;
+	text-shadow: none;
+	color: #000;
+	font-size: 15px;
+	-webkit-appearance: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.demo-main-cont {
+	height: 100%
+}
+
+.mbsc-sc-itm {
+	text-align: center !important
+}
+
+.buttonClass{
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, .2);
+border-radius: 6px;
+
+}
+
+
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+ .manage-content{.modal
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+
+
+}
+ .manage-button{
+ background-color: #FF7171;
+ color:white;
+ }
+
+
+    .modal.fade.in{
+        top:30px;
+    }
