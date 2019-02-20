@@ -5,25 +5,7 @@
     <bookmark url="file://$PROJECT_DIR$/mysql.py" line="644" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e022fe3f-c0c6-4298-9256-146552fa76b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NZDController.py" beforeDir="false" afterPath="$PROJECT_DIR$/NZDController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NZDMySqlConnect.py" beforeDir="false" afterPath="$PROJECT_DIR$/NZDMySqlConnect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservation_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Management.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Management.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/baby.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/baby.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/person.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/person.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reservationRecord.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reservationRecord.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/timeList.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/timeList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/workerNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/workerNumber.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/workerPerson.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/workerPerson.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/pip-selfcheck.json" beforeDir="false" afterPath="$PROJECT_DIR$/venv/pip-selfcheck.json" afterDir="false" />
-    </list>
+    <list default="true" id="e022fe3f-c0c6-4298-9256-146552fa76b9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NZDController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="1104" lean-forward="true" selection-start-line="1104" selection-end-line="1104" />
+            <state relative-caret-position="458">
+              <caret line="1104" selection-start-line="1104" selection-end-line="1104" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -50,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5791">
-              <caret line="636" column="23" lean-forward="true" selection-start-line="636" selection-start-column="23" selection-end-line="636" selection-end-column="23" />
+            <state relative-caret-position="12065">
+              <caret line="636" column="23" selection-start-line="636" selection-start-column="23" selection-end-line="636" selection-end-column="23" />
               <folding>
                 <element signature="e#1#23#0" expanded="true" />
               </folding>
@@ -62,7 +44,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/msg.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1919">
+            <state relative-caret-position="228">
               <caret line="12" column="78" selection-start-line="12" selection-end-line="12" selection-end-column="78" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#p#0;n#li#0;n#ul#0;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -78,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/templates/Management.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -183,8 +165,8 @@
         <option value="$PROJECT_DIR$/templates/WorkerNumber.html" />
         <option value="$PROJECT_DIR$/templates/employeeManagement.html" />
         <option value="$PROJECT_DIR$/templates/store.html" />
-        <option value="$USER_HOME$/Desktop/reservation_check.py" />
-        <option value="$USER_HOME$/Desktop/reservation_check(1).py" />
+        <option value="$PROJECT_DIR$/../reservation_check.py" />
+        <option value="$PROJECT_DIR$/../reservation_check(1).py" />
         <option value="$PROJECT_DIR$/templates/error.html" />
         <option value="$PROJECT_DIR$/templates/msg.html" />
         <option value="$PROJECT_DIR$/templates/sousuo.html" />
@@ -234,28 +216,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
               <item name="Test" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Test" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -488,7 +455,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49896264" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" sideWeight="0.50103736" side_tool="true" weight="0.24973656" />
@@ -532,7 +498,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$USER_HOME$/Desktop/function.py</url>
+          <url>file://$PROJECT_DIR$/../function.py</url>
           <line>247</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -547,7 +513,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/server.py" />
+    <entry file="file://$PROJECT_DIR$/../server.py" />
     <entry file="file://$PROJECT_DIR$/static/Font-Awesome/css/default.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -584,7 +550,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/function.py">
+    <entry file="file://$PROJECT_DIR$/../function.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="240" column="37" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
@@ -594,7 +560,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/reservation_check.py">
+    <entry file="file://$PROJECT_DIR$/../reservation_check.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
@@ -604,7 +570,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/reservation_check(1).py">
+    <entry file="file://$PROJECT_DIR$/../reservation_check(1).py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="72" column="9" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
@@ -614,7 +580,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/reservation_check(2).py">
+    <entry file="file://$PROJECT_DIR$/../reservation_check(2).py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1330">
           <caret line="32" column="50" lean-forward="true" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
@@ -968,16 +934,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/personOrderRecord.html">
+    <entry file="file://$PROJECT_DIR$/NZDController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="6" selection-start-column="6" selection-end-column="6" />
+        <state relative-caret-position="458">
+          <caret line="1104" selection-start-line="1104" selection-end-line="1104" />
           <folding>
-            <element signature="n#style#0;n#span#0;n#span#1;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12065">
+          <caret line="636" column="23" selection-start-line="636" selection-start-column="23" selection-end-line="636" selection-end-column="23" />
+          <folding>
+            <element signature="e#1#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/msg.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="78" selection-start-line="12" selection-end-line="12" selection-end-column="78" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#p#0;n#li#0;n#ul#0;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#2926#2932#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#li#0;n#ul#1;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#li#0;n#ul#1;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -985,7 +970,7 @@
     <entry file="file://$PROJECT_DIR$/templates/Management.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1006,35 +991,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/msg.html">
+    <entry file="file://$PROJECT_DIR$/templates/personOrderRecord.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1919">
-          <caret line="12" column="78" selection-start-line="12" selection-end-line="12" selection-end-column="78" />
+        <state>
+          <caret column="6" selection-start-column="6" selection-end-column="6" />
           <folding>
-            <element signature="n#style#0;n#span#0;n#p#0;n#li#0;n#ul#0;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#2926#2932#0" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#p#0;n#li#0;n#ul#1;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#li#0;n#ul#1;n#article#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5791">
-          <caret line="636" column="23" lean-forward="true" selection-start-line="636" selection-start-column="23" selection-end-line="636" selection-end-column="23" />
-          <folding>
-            <element signature="e#1#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NZDController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="1104" lean-forward="true" selection-start-line="1104" selection-end-line="1104" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#span#1;n#p#0;n#div#1;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
