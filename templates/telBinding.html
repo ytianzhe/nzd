@@ -29,7 +29,7 @@ function sendVerificationCode(){
             	type:"Post",
 				url:"/sMSVerificationCode",
             	dataType:'json',
-            	data:$("#workerRegisterForm").serialize(),
+            	data:$("#verificationCodeForm").serialize(),
             	success:function(result){
             	var data = JSON.stringify(result.msg);    //返回的数据
             	var obj2 = JSON.parse(data);
@@ -158,25 +158,31 @@ input {
 			<div class="modal-content">
 				<div class="modal-header" style="text-align: center; color: #FF7171">
 
-					<h3 class="modal-title" >绑定已有手机号</h3>
+					<h3 class="modal-title" >手机号绑定</h3>
 				</div>
 				<div class="modal-body" >
-					<form  id="workerRegisterForm">
+					<form  id="verificationCodeForm">
 						<div class="">
-							<label class="control-label">内部号码:</label>
+							<label class="control-label">手机号码:</label>
 							  <div class="radio radio-info radio-inline" style="width:80%">
 		                        <input type="text" id="telNum" name="telNum"
-									class="" placeholder="请输入店长预留的是手机号码"  style="text-align: center"/>
+									class="" placeholder="请输入要绑定的手机"  style="text-align: center"/>
 		                 		 </div>
 						</div>
-
+						<div class="">
+							<label class="control-label">真实姓名:</label>
+							  <div class="radio radio-info radio-inline" style="width:80%">
+		                        <input type="text" id="name" name="name"
+									class="" placeholder="请输入真实姓名"  style="text-align: center"/>
+		                 		 </div>
+						</div>
 						<div class="">
 							<label class="control-label">验证号码:</label>
 							  <div class="radio radio-info radio-inline" style="width:80%">
 								  <input id="code" placeholder="请输入验证码"  style="text-align: center" name="verificationCode"/>
 							  </div>
 							<input type="button" id="btn" value="免费获取验证码" onclick="sendVerificationCode()" />
-							<input type="hidden" value="{{ openid }}"  name="openid"/>
+							<input type="hidden" value="{{ results }}"  name="openid"/>
 						</div>
 
 					</form>
@@ -194,7 +200,7 @@ input {
 			</div>
 			<!-- 注意事项end -->
 			<div>
-			  <button type="button"  class="" data-toggle="modal"  style="width:100%;background-color: #FF7171 " id="changebindingBtn">更换绑定
+			  <button type="button"  class="" data-toggle="modal"  style="width:100%;background-color: #FF7171 " id="bindingBtn">绑定
            	 </button>
 			</div>
 		</div>
@@ -212,17 +218,19 @@ input {
 	</div>
 
 	<script>
-		$("#changebindingBtn").on("click", function() {
+		$("#bindingBtn").on("click", function() {
 		var telNum = document.getElementById("telNum").value;
+
+		var name = document.getElementById("name").value;
 		var code = document.getElementById("code").value;
-		if(telNum!=''  && code !='')
+		if(telNum!='' && name!='' && code !='')
 		{
 		if(isPoneAvailable(telNum)==true){
         $.ajax({
             	type:"Post",
-				url:"/EmployeeBindsMobilePhone",
+				url:"/comparisonVerificationCode",
             	dataType:'json',
-            	data:$("#workerRegisterForm").serialize(),
+            	data:$("#verificationCodeForm").serialize(),
             	success:function(result)
             		{
             	var msg = JSON.stringify(result.msg);    //返回的数据
@@ -239,11 +247,11 @@ input {
 			  	 		 ,skin: 'msg'
 			  	 		 ,time: 2 //2秒后自动关闭
 						  });
-						  if(msg="更换成功")
+						  if(msg="注册成功")
 						  {
 						  //alert("6666666")
 						  setTimeout(function(){
-        	window.location.href="/personPage";
+        	location.reload();
    	 },1500);
 
 

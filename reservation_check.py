@@ -113,8 +113,8 @@ def sort_dict(data):
     return sorted_dict
 
 
-# data = {"resv_time":"2019-01-28","location":1}
-# cust_resv = {"duration":90}
+# data = {"resv_time":"2019-02-18","location":1}
+# cust_resv = {"duration":30}
 # a=get_resv(data)
 # b=check(a)
 # b['14:30']+=3

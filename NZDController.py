@@ -9,10 +9,260 @@ from flask import redirect
 from flask import url_for,jsonify
 from datetime import timedelta
 import reservation_check
+import  api_test
 import os
+import random1
+import  dateTimeDemo
+import Integer30
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)  # 设置为24位的字符,每次运行服务器都是不同的，所以服务器启动一次上次的session就清除。
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)  # 设置session的保存时间。\
+
+
+'''员工绑定已经录好的手机号'''
+# Employee binds mobile phone
+@app.route('/indexTest',methods=['GET','POST'])
+def indexTest():
+    return render_template('indexTest.html')
+
+'''员工绑定已经录好的手机号'''
+# Employee binds mobile phone
+@app.route('/EmployeeBindsMobilePhone',methods=['GET','POST'])
+def EmployeeBindsMobilePhone():
+    if 'verCode' in session and 'telRegister' in session:
+        vcode=session.get('verCode')
+        telNow=session.get('telRegister')
+        print(vcode,telNow)
+        telNum = request.values['telNum']
+        VerificationCode=request.values['verificationCode']
+        openid = request.values['openid']
+        print(telNum, VerificationCode,openid)
+        if str(VerificationCode)==str(vcode) and  str(telNum) == str(telNow):
+            print('验证成功验证码,开始尝试绑定已有的手机号')
+        telNumCount = mysql.SelectTypeValueWorker('worker_phone_num', telNum)
+        b = telNumCount[0]
+        print(b)
+        if b == 1:
+            print('手机号存在可以尝试绑定，开始绑定')
+            #查找手机号对应的用户是否已经有openid 如果没有就开始绑定 如果有就绑定失败
+            results=mysql.SearchOpenidByTel(telNum)
+            openidNow=results[0]
+            print(openidNow)
+            if openidNow is None or openidNow.strip()=='':
+                a='该账号无人绑定 可以进行绑定'
+                print(a)
+                i=mysql.EmployeeBindsExistingMobilePhoneNumber(telNum, openid)
+                if i==1:
+                    msg='绑定成功'
+                    return out_user_info('0', msg, '1')
+                else:
+                    msg='绑定失败'
+                    return out_user_info('0', msg, '1')
+            else:
+                a = '该账号已经有人了无法绑定'
+                print(a)
+                return out_user_info('0', a, '1')
+        elif b == 0:
+            msg='手机号不存在 无法绑定'
+            print(msg)
+            return out_user_info('0', msg, '1')
+        else:
+            msg = '手机号异常 请更换手机号绑定'
+            print(msg)
+            return out_user_info('0', msg, '1')
+
+    else:
+        return render_template('error.html')
+
+'''更换手机方法'''
+@app.route('/changeTel',methods=['GET','POST'])
+def changeTel():
+    if 'userId' in session and 'authority' in session:
+        userId=session.get('userId')
+        authority=session.get('authority')
+        print(userId,authority)
+        if 'verCode' in session and 'telRegister' in session:
+            vcode = session.get('verCode')
+            telNow = session.get('telRegister')
+            print(vcode, telNow)
+            telNum = request.values['telNum']
+            VerificationCode = request.values['verificationCode']
+            print(VerificationCode, telNum)
+            if str(VerificationCode) == str(vcode) and str(telNum) == str(telNow):
+                print(authority)
+                print(str(authority))
+                if (str(authority) == 'c'):
+                    print('不是员工')
+                    telNumCount = mysql.SelectTypeValue('customer_phone_num', telNum)
+                    b = telNumCount[0]
+                elif (str(authority) == 'sm' or (str(authority) == 'm')):
+                    print('是员工')
+                    telNumCount = mysql.SelectTypeValueWorker('worker_phone_num', telNum)
+                    b = telNumCount[0]
+                print(b)
+                if b != 0:
+                    msg = '手机号已经被占用'
+                    session.pop('verCode', None)
+                    session.pop('telRegister', None)
+                    print(msg)
+                    return out_user_info('0', msg, '1')
+                else:
+                    msg = '更换成功'
+                    session.pop('verCode', None)
+                    session.pop('telRegister', None)
+                    print(msg)
+                    if (str(authority) == 'c'):
+                        mysql.changeTelBind(telNum, userId)
+                    elif (str(authority) == 'sm' or (str(authority) == 'm')):
+                        mysql.changeTelBindWorker(telNum, userId)
+                    else:
+                        msg = '权限异常'
+                    return out_user_info('0', msg, '1')
+
+        else:
+            msg = '当前验证码已经过期，请重新发送'
+            print(msg)
+            return out_user_info('0', msg, '1')
+    else:
+        return render_template('error.html')
+
+
+
+'''更换手机号页面跳转'''
+@app.route('/changeTelPage',methods=['GET','POST'])
+def changeTelPage():
+    return render_template('changeTel.html')
+
+
+
+'''验证验证码'''
+@app.route('/comparisonVerificationCode',methods=['GET','POST'])
+def comparisonVerificationCode():
+    if 'verCode' in session and 'telRegister' in session:
+        vcode=session.get('verCode')
+        telNow=session.get('telRegister')
+        #print(vcode,telNow)
+        telNum = request.values['telNum']
+        VerificationCode=request.values['verificationCode']
+        openid=request.values['openid']
+        name=request.values['name']
+        #print(VerificationCode,telNum,openid)
+        if str(VerificationCode)==str(vcode) and  str(telNum) == str(telNow):
+            print('验证成功验证码,开始绑定')
+            telNumCount=mysql.SelectTypeValue('customer_phone_num',telNum)
+            b=telNumCount[0]
+            print(b)
+            if b!=0:
+                msg='手机号已经被占用'
+                session.pop('verCode', None)
+                session.pop('telRegister', None)
+                print(msg)
+                return out_user_info('0', msg, '1')
+            else:
+                nameCount = mysql.SelectTypeValue('customer_name', name)
+                c=nameCount[0]
+                print(c)
+                if c!=0:
+                    msg='该姓名已经被占用'
+                    session.pop('verCode', None)
+                    session.pop('telRegister', None)
+                    print(msg)
+                    return out_user_info('0', msg, '1')
+                else:
+                    msg = '注册成功'
+                    session.pop('verCode', None)
+                    session.pop('telRegister', None)
+                    print(msg)
+                    mysql.telBind(openid,telNum,name)
+                    return out_user_info('0', msg, '1')
+        else:
+            msg='验证失败'
+            print(msg)
+            return out_user_info('0', msg, '1')
+    else:
+        msg='当前验证码已经过期，请重新发送'
+        print(msg)
+        return out_user_info('0', msg, '1')
+
+'''发送验证码'''
+
+@app.route('/sMSVerificationCode',methods=['GET','POST'])
+def sMSVerificationCode():
+    telNum = request.values['telNum']
+    print(telNum)
+    url2 = 'http://wcphp172.xinhaimobile.cn/xh_sms/sms/sms_qcloud.php'
+    phone = '18395806960'
+    name = '奶珍多用户'
+    # content = '9588'
+    content=random1.randomFour()
+    print(content)
+    templId = '278738'  # 模板id 32518预警模板
+    operation = 'onesms'  # onesms单条
+    session.permanent = True  # 默认session的时间持续31天
+    session['verCode'] = content
+    session['telRegister'] = telNum
+    results=api_test.api_func(url2,telNum,name,content,templId,operation)
+    vcode = session.get('verCode')
+    telNow=session.get('telRegister')
+    print(vcode)
+    print(telNow)
+    #print('------------'+results)
+    return out_user_info('0', results, '1')
+    # if 'code' in session:
+    #     telNum = request.values['telNum']
+    #     verificationCode = request.values['verificationCode']
+    #     print()
+    # else:
+
+
+'''个人详情记录时间搜索'''
+# reservationPersonRecordPage
+@app.route('/reservationPersonRecordPage',methods=['GET','POST'])
+def reservationPersonRecordPage():
+    if 'userId' in session:
+        userId = session.get('userId')
+        startTime=request.values['startTime']
+        endTime=request.values['endTime']
+        # startTime = request.form['startTime']
+        # endTime = request.form['endTime']
+        print('startTime:',startTime,' endTime:',endTime)
+        sqlJoint=''
+        if startTime.strip() != '':
+            sqlJoint= sqlJoint+" and nzdr.resv_time >= '%s' "%(startTime)
+        if endTime.strip() != '':
+            sqlJoint= sqlJoint+" and nzdr.resv_time <= '%s' "%(endTime)
+        if endTime.strip() == ''and startTime.strip() == '':
+            sqlJoint = "and nzdr.resv_time =curdate()"
+        print(sqlJoint)
+        results = mysql.SearchPersonRecordDetailsByDate(userId,sqlJoint)
+        print(results)
+        return render_template('personOrderRecord.html', results=results)
+    else:
+        return render_template('error.html')
+
+'''个人预约记录详情'''
+@app.route('/PersonRecordDetails',methods=['GET','POST'])
+def PersonRecordDetails():
+    id=request.values['num']
+    results = mysql.SearchPersonRecordDetails(id)
+    print(results)
+    #print(results['storeName'])
+    #return render_template('personOrderRecord.html', results=results)
+    return out_user_info('0', results, '1')
+'''个人预约记录'''
+@app.route('/PersonalOrderRecordPage',methods=['GET','POST'])
+def PersonalOrderRecordPage():
+    if 'userId' in session:
+        userId = session.get('userId')
+        print(userId)
+        results = mysql.SearchPersonalOrderRecord(userId)
+        print(results)
+        return render_template('personOrderRecord.html', results=results)
+    else:
+        return render_template('error.html')
+
+
+
 '''提交预约'''
 @app.route('/addOrder',methods=['GET','POST'])
 def addOrder():
@@ -39,8 +289,18 @@ def addOrder():
                 print('{}'.format(value))
                 projectId='{}'.format(value)
                 if not projectId=='0':
-                    mysql.addOrder(userId,orderDate,startTime,'10:00',projectId,location)
+                    print(projectId)
+                    duration=mysql.SearchDurationByProjectId(projectId)[0]
+                    print(duration)
+                    duration=Integer30.IntegerChange(int(duration))
+                    print(duration)
+                    print(startTime)
+                    endTime=dateTimeDemo.dateCalculate(str(startTime),int(duration))
+                    print(endTime)
+                    # mysql.addOrder(userId,orderDate,startTime,'10:00',projectId,location)
 
+                    mysql.addOrder(userId,orderDate,startTime,endTime,projectId,location)
+                    startTime=endTime
             # 进行增加sql
             # rowCount = mysql.addbaby(addBabyName, addBabyBirth, id)
             # if rowCount == 1:
@@ -74,17 +334,19 @@ def SearchTimeList():
     sum=0
     projectlist={1:'0',2:'0',3:'0'}
     if not request.form['express_project1'] is None:
-        print('project1',request.form['express_project1'])
-        project1 = request.form['express_project1']
-        pr1Time = mysql.SearchBussinessTime(project1)['business_duration']
-        pr1Int = 0
-        if not int(pr1Time) % 30 == 0:
-            pr1Int = ((int(pr1Time) // 30) + 1) * 30
+        if not (request.form['express_project1']).strip() == '':
+            print('project1',request.form['express_project1'])
+            project1 = request.form['express_project1']
+            pr1Time = mysql.SearchBussinessTime(project1)['business_duration']
+            pr1Int = 0
+            if not int(pr1Time) % 30 == 0:
+                pr1Int = ((int(pr1Time) // 30) + 1) * 30
+            else:
+                pr1Int = int(pr1Time)
+            sum = sum + int(pr1Time)
+            projectlist[1] = mysql.SearchBussinessTime(project1)['id']
         else:
-            pr1Int = int(pr1Time)
-        sum = sum + int(pr1Time)
-        projectlist[1] = mysql.SearchBussinessTime(project1)['id']
-
+            print('project为空')
 
     if not  request.form['express_project2'] is None:
         if not (request.form['express_project2']).strip() == '':
@@ -158,11 +420,27 @@ def SearchTimeList():
 def orderPage():
     # return render_template('newOrder.html')
     results=mysql.selectBusiness()
-    # a=results['business_name']
-    # for i in results:
-
+    results2=mysql.selectStoreList()
     print(results)
-    return render_template('order.html',results=results)
+    list = []
+    for i in results:
+        #print(i[0])
+        list.append(i[0])
+        #print(len(i[0]))
+    print(list)
+
+    storeList=[]
+    for i in results2:
+        storeList.append(i[0])
+    print(storeList)
+
+    #projectDemo="['二','二','二','一']"
+   # s2=unicode(list, "utf-8")
+    return render_template('order.html',projectList=list,storeList=storeList)
+
+
+
+
 
 '''消息记录'''
 @app.route('/msgPage',methods=['GET','POST'])
@@ -189,20 +467,47 @@ def delBaby():
 ''' 编辑宝宝 '''
 @app.route("/editBaby",methods=['GET','POST'])
 def editBaby():
-    if request.method =='POST':
-        editBabyName = request.form['editBabyName']
-        editBabyBirth = request.form['editBabyBirth']
-        editId = request.form['editId']
+    updatekey=0
+    print(updatekey)
+    if 'userId' in session:
+        id = session.get('userId')
+        if request.method =='POST':
+            editBabyName = request.form['editbabyName']
+            editBabyBirth = request.form['editbabyBirth']
+            editId = request.form['babyId']
 
-        print(editBabyName+"----"+editBabyBirth+'----'+editId)
-        rowCount = mysql.editBaby(editBabyName,editBabyBirth,editId)
-        if rowCount == 1:
-            msg = 'update succeed'
+
+            oldEditBabyName=mysql.SearchBabyNameBybabyId(editId)
+            print(editBabyName,oldEditBabyName)
+            if(str(editBabyName)==str(oldEditBabyName)):
+                print('名字和旧名字相同')
+                updatekey=1
+                print(updatekey)
+            else:
+                print('名字和旧名字不相同')
+                results = mysql.SearchAddBabyNameByUserId(id, editBabyName)
+                editBabyNameCount = results[0]
+                if (editBabyNameCount == 0):
+                    # 该孩子名字没有被注册可以进行更新
+                    updatekey = 1
+                    print(updatekey)
+                else:
+                    msg = '添加失败,请不要重复添加相同的孩子姓名 '
+                    print(updatekey)
+                    print(msg)
+                    return out_user_info('0', msg, 1)
+
+            if updatekey == 1:
+                rowCount = mysql.editBaby(editBabyName,editBabyBirth,editId)
+                if rowCount == 1:
+                    msg = 'update succeed'
+                else:
+                    msg='update error'
+                return out_user_info('0', msg, rowCount)
         else:
-            msg='update error'
-        #return out_user_info('0', '1', '1')
-        return out_user_info('0', msg, rowCount)
-
+            return render_template('error.html')
+    else:
+        return render_template('error.html')
 
 
 
@@ -217,13 +522,26 @@ def addBaby():
             addBabyBirth = request.form['addBabyBirth']
             print(addBabyName + "----" + addBabyBirth )
             # 进行增加sql
-            rowCount = mysql.addbaby(addBabyName, addBabyBirth, id)
-            if rowCount == 1:
-                msg = '添加成功'
+
+            results=mysql.SearchAddBabyNameByUserId(id,addBabyName)
+            addBabyNameCount=results[0]
+
+
+            print(addBabyNameCount)
+            if(addBabyNameCount==0):
+                #该孩子名字没有被注册可以进行添加
+                rowCount = mysql.addbaby(addBabyName, addBabyBirth, id)
+                if rowCount == 1:
+                    msg = '添加成功'
+                else:
+                    msg = '添加异常 '
+                # return out_user_info('0', '1', '1')
+                return out_user_info('0', msg, rowCount)
             else:
-                msg = '添加异常 '
-            # return out_user_info('0', '1', '1')
-            return out_user_info('0', msg, rowCount)
+                msg = '添加失败,请不要重复添加相同的孩子姓名 '
+                print(msg)
+                return out_user_info('0', msg, 1)
+
     else:
         return render_template('error.html')
 
@@ -545,9 +863,16 @@ def HomeLogin():
         session['userId'] = customerId
         session['authority'] = customerAuthority
         print(session.get('userId'))
-        return render_template('index.html', cN=customerName, ID=customerId)
+        storeList = mysql.selectStoreList()
+        list = []
+        for i in storeList:
+            # print(i[0])
+            list.append(i[0])
+            # print(len(i[0]))
+        print(list)
+        return render_template('index.html', cN=customerName, ID=customerId,storeList=list)
     else:
-        return render_template('register.html',results=openid)
+        return render_template('telBinding.html',results=openid)
 
 
 '''员工登入'''
@@ -571,7 +896,14 @@ def WorkerLogin():
         session['authority'] = WorkerAuthority
         session['location'] = WorkerLocation
         print(session.get('userId'))
-        return render_template('index.html')
+        storeList=mysql.selectStoreList()
+        list = []
+        for i in storeList:
+            # print(i[0])
+            list.append(i[0])
+            # print(len(i[0]))
+        print(list)
+        return render_template('index.html',storeList=list)
 
 
 
@@ -610,9 +942,8 @@ def managePage():
             print(authority)
             if authority == 'c':
                 print('顾客,拒绝操作，权限不足');
-                msg = '权限不足,无法访问'
-
-                return render_template('error.html', msg=msg)
+                msg = '用户权限不足,无法访问'
+                return render_template('index.html', msg=msg)
 
             elif authority == 'm'or authority=='sm':
 
@@ -788,4 +1119,5 @@ if __name__ == '__main__':
     # app.run("10.168.20.186","5000",debug=True)
     # app.run("127.0.0.1", port=5000)
     # app.run("127.0.0.1",port=8080)
-    app.run("10.168.20.184",port=8081)
+    # app.run("10.168.20.183",port=8081)
+    app.run("192.168.6.35",port=8081)

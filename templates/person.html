@@ -214,9 +214,8 @@
 		</br>
 		<aside>
 			<ul>
-				<li style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);" id="babyBtn"><a href="javascript(void)" class="sp1"><i class="iconfont">&#xe60b;</i>宝宝信息<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
-				<li style="margin-top: .2rem;opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);">
-				<a href="javscript_3A;" class="sp2"><i class="iconfont">&#xe617;</i>个人预约记录<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
+				<li style="opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);" id="babyBtn"><a href="javascript:void(0);" class="sp1"><i class="iconfont">&#xe60b;</i>宝宝信息<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
+				<li style="margin-top: .2rem;opacity: 1;background: rgba(255,255,255,1);box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1607843137254902);" id="personOrderRecordPageBtn"><a href="javascript:void(0);" class="sp2"><i class="iconfont">&#xe617;</i>个人预约记录<i class="iconfont" style="float: right;font-size: .3rem;">&#xe602;</i></a></li>
 			</ul>
 		</aside>
 		<div style="height: 1rem;"></div>
@@ -239,11 +238,16 @@
 			$('#babyBtn').click(function(){
 				window.location.href="/babyPage";
 			})
+			$('#personOrderRecordPageBtn').click(function(){
+				window.location.href="/PersonalOrderRecordPage";
+			})
+
 			$('footer a').click(function(){
 				$(this).addClass('on').siblings().removeClass('on');
 			});
 			$('#editTel').click(function(){
-				alert('手机号功能修改寻找短信合作人中,敬请期待!');
+				//alert('手机号功能修改寻找短信合作人中,敬请期待!');
+				window.location.href="/changeTelPage";
 			})
 		</script>
 	</body>

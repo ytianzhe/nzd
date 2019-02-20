@@ -189,11 +189,19 @@ def selectReservationRecord(sqlJoint):
     try:
         conn = NZDMySqlConnect.get_dbconnectYTZ()
         c = conn.cursor()
-        sql = "SELECT nzdr.id,nzdr.location,nzdc.customer_name,nzdr.resv_time,nzdr.start_time,nzdb.business_name,nzdc.customer_phone_num FROM  \
-          `naizhenduo_reservation` nzdr \
-        left join naizhenduo_businesslist nzdb on nzdb.id=nzdr.resv_info  \
-        left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id \
-             where nzdr.state='1' "+sqlJoint
+        # sql = "SELECT nzdr.id,nzdr.location,nzdc.customer_name,nzdr.resv_time,nzdr.start_time,nzdb.business_name,nzdc.customer_phone_num FROM  \
+        #   `naizhenduo_reservation` nzdr \
+        # left join naizhenduo_businesslist nzdb on nzdb.id=nzdr.resv_info  \
+        # left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id \
+        #      where nzdr.state='1' "+sqlJoint
+
+        sql = "SELECT nzdr.id,nzdr.location,nzdc.customer_name,nzdr.resv_time,nzdr.start_time,nzdb.business_name,nzdc.customer_phone_num ,nzds.store_name  FROM  \
+                `naizhenduo_reservation` nzdr \
+              left join naizhenduo_businesslist nzdb on nzdb.id=nzdr.resv_info  \
+              left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id \
+              left join naizhenduo_store_info nzds on nzds.id=nzdr.location \
+                   where nzdr.state='1' " + sqlJoint
+
         print(sql)
         c.execute(sql)
         results = c.fetchall()
@@ -253,6 +261,26 @@ def selectBusiness():
     except:
         conn.rollback()
     conn.close()
+
+def selectStoreList():
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT nzdb.store_name FROM `naizhenduo_store_info`  nzdb where nzdb.state='1' "
+        print(sql)
+        c.execute(sql)
+        results = c.fetchall()
+
+        # 将rows转化为数组
+
+        # print(results)
+        c.close()
+        conn.close()
+        return results
+    except:
+        conn.rollback()
+    conn.close()
+
 
 '''增加项目'''
 def addBussinessList(addlistName,addtime):
@@ -482,7 +510,7 @@ def editBaby(babyName,babyBirth,babyId):
     try:
         conn = NZDMySqlConnect.get_dbconnectYTZ()
         c= conn.cursor()
-        sql = "UPDATE naizhenduo_babylist SET baby_name = '%s' ,baby_birthday='%s' WHERE id = '%s'" % (babyName,babyBirth,babyId)
+        sql = "UPDATE naizhenduo_babylist SET baby_name = '%s' ,baby_birthday='%s' WHERE id = '%s'" % (babyName, babyBirth , babyId)
         print(sql)
         i = c.execute(sql)
         conn.commit()
@@ -672,3 +700,268 @@ def addOrder(customer_id,resv_time,start_time,end_time,resv_info,location):
         conn.rollback()
     conn.close()
 
+'''个人预约记录'''
+def SearchPersonalOrderRecord(userId):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        # sql = "SELECT nzds.id FROM `naizhenduo_store_info` nzds  where nzds.state='1' and nzds.store_name='%s'"  %(userId)
+        sql = "SELECT nzdr.*,nzdc.customer_name,nzdb.business_name,nzds.store_name FROM `naizhenduo_reservation` nzdr \
+                left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id \
+                left join naizhenduo_businesslist nzdb on  nzdb.id=nzdr.resv_info \
+                left join naizhenduo_store_info nzds on nzds.id=nzdr.location \
+                   where nzdr.customer_id='%s'" %(userId)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchall()
+        # print(results)
+
+        return results
+        c.close()
+        conn.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+'''个人预约记录详情'''
+# SearchPersonRecordDetails
+def SearchPersonRecordDetails(id):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        # sql = "SELECT nzds.id FROM `naizhenduo_store_info` nzds  where nzds.state='1' and nzds.store_name='%s'"  %(userId)
+        sql = "SELECT nzdr.resv_time,nzdr.start_time,nzdr.end_time,nzdc.customer_name,nzdb.business_name,nzds.store_name ,nzdb.business_duration FROM `naizhenduo_reservation` nzdr \
+                left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id \
+                left join naizhenduo_businesslist nzdb on  nzdb.id=nzdr.resv_info \
+                left join naizhenduo_store_info nzds on nzds.id=nzdr.location \
+                   where nzdr.id='%s'" %(id)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        Details = {}
+        Details['resvTime'] = results[0]
+        Details['startTime'] = results[1]
+        Details['endTime'] = results[2]
+        Details['customerName'] = results[3]
+        Details['businessName'] = results[4]
+        Details['storeName'] = results[5]
+        Details['projectDuration'] = results[6]
+        # print(results)
+        return Details
+        c.close()
+        conn.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+
+'''查询个人预约记录详情'''
+def SearchPersonRecordDetailsByDate(userId,sql):
+    # print(userId)
+    # print(sql)
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql="SELECT nzdr.*,nzdc.customer_name,nzdb.business_name,nzds.store_name,nzdb.business_duration FROM `naizhenduo_reservation` nzdr " \
+            "left join naizhenduo_customer_info nzdc on nzdc.id=nzdr.customer_id    \
+            left join naizhenduo_businesslist nzdb on  nzdb.id=nzdr.resv_info     \
+        left join naizhenduo_store_info nzds on nzds.id=nzdr.location          \
+        where nzdr.customer_id=%s \
+        %s"%(userId, sql)
+
+        #where nzdr.customer_id='%s' '%s' "%(userId, sql)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchall()
+
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+'''绑定手机和openid'''
+# telBind
+def telBind(openid,telNum,name):
+    print(openid,telNum,name)
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c= conn.cursor()
+        sql = "insert  into naizhenduo_customer_info \
+        (customer_wechat,customer_name,customer_phone_num,authority) \
+        VALUES  (\'%s\',\'%s\',\'%s\',\'%s\')" % \
+        (openid, name,telNum,'c')
+        print(sql)
+        i=c.execute(sql)
+        conn.commit()
+        print(i)
+        c.close()
+        # dict={'code':0,'msg':'insert succeed','i':i}
+        return i
+    except:
+        print
+        'MySQL connect fail...'
+        conn.rollback()
+    conn.close()
+
+'''绑定手机检测是否重名'''
+def SelectTypeValue(type,value):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT count(*) FROM `naizhenduo_customer_info` nzdc  \
+        where nzdc.%s='%s'" \
+         % (type, value)
+        # where nzdr.customer_id='%s' '%s' "%(userId, sql)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+'''绑定手机检测是否重名员工'''
+def SelectTypeValueWorker(type,value):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT count(*) FROM `naizhenduo_worker_info` nzdw  \
+        where nzdw.%s='%s'" \
+         % (type, value)
+        # where nzdr.customer_id='%s' '%s' "%(userId, sql)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+'''更换手机号'''
+
+def changeTelBind(telNum, userId):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c= conn.cursor()
+        sql = "UPDATE naizhenduo_customer_info SET customer_phone_num = '%s'   WHERE id = '%s'" % (telNum, userId)
+        print(sql)
+        i = c.execute(sql)
+        conn.commit()
+        print(i)
+        c.close()
+        return i
+    except:
+        conn.rollback()
+    conn.close()
+'''更换员工手机号'''
+# changeTelBindWorker
+def changeTelBindWorker(telNum, userId):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c= conn.cursor()
+        sql = "UPDATE naizhenduo_worker_info SET worker_phone_num = '%s'   WHERE id = '%s'" % (telNum, userId)
+        print(sql)
+        i = c.execute(sql)
+        conn.commit()
+        print(i)
+        c.close()
+        return i
+    except:
+        conn.rollback()
+    conn.close()
+
+
+'''查询员工手机号对应的openid'''
+# changeTelBindWorker
+def SearchOpenidByTel(telNum):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT nzdw.worker_wechat FROM `naizhenduo_worker_info` nzdw  \
+              where nzdw.worker_phone_num='%s'" \
+              % (telNum)
+        # where nzdr.customer_id='%s' '%s' "%(userId, sql)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+
+'''员工绑定已有手机号'''
+# EmployeeBindsExistingMobilePhoneNumber
+def EmployeeBindsExistingMobilePhoneNumber(telNum, openid):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c= conn.cursor()
+        sql = "UPDATE naizhenduo_worker_info SET worker_wechat = '%s'   WHERE  worker_phone_num= '%s'" % (openid, telNum)
+        print(sql)
+        i = c.execute(sql)
+        conn.commit()
+        print(i)
+        c.close()
+        return i
+    except:
+        conn.rollback()
+    conn.close()
+
+'''查询项目id对应的时间'''
+
+def SearchDurationByProjectId(ProjectId):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT nzdb.business_duration FROM `naizhenduo_businesslist` nzdb  \
+              where nzdb.id='%s'" \
+              % (ProjectId)
+        # where nzdr.customer_id='%s' '%s' "%(userId, sql)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+
+'''查询该用户中 宝宝新名字的数量'''
+def SearchAddBabyNameByUserId(userId,babyName):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT count(*),nzdb.baby_name FROM `naizhenduo_babylist` nzdb  \
+        where nzdb.customer_id=%s and nzdb.baby_name='%s' and nzdb.state='1'"  \
+         % (userId,babyName)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()
+
+
+'''查询宝宝名字by babyid'''
+def SearchBabyNameBybabyId(babyid):
+    try:
+        conn = NZDMySqlConnect.get_dbconnectYTZ()
+        c = conn.cursor()
+        sql = "SELECT nzdb.baby_name FROM `naizhenduo_babylist` nzdb  \
+        where   nzdb.id='%s' and nzdb.state='1'"  \
+         % (babyid)
+        print(sql)
+        c.execute(sql)
+        results = c.fetchone()
+        return results
+        c.close()
+    except:
+        conn.rollback()
+    conn.close()

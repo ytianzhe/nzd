@@ -12,6 +12,8 @@
 <link href={{url_for("static",filename="css/base.css")}} rel="stylesheet" type="text/css" /><!--公用样式-->
 <link rel="stylesheet" href={{url_for("static",filename="css/mishouye.css")}}>
 <link rel="stylesheet" href={{url_for("static",filename="css/11css.css")}}>
+		<script src={{url_for("static",filename="layer/mobile/layer.js")}}></script>
+
 
 <style type="text/css">
 html, body {
@@ -153,8 +155,8 @@ border-radius: 6px;
                                  <div class="icon_h"></div>
                                  <div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">
             							<h2 class="news-Title">门店:{{i[10]}}| 客户姓名：{{i[8]}}</h2>
-           							 <p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>{{i[2]}}</b></span><span class="num" style="color: #FF7171" >展开</span></p>
-
+           							 <p class="news-Intro"><span class="user"><b class="mr10">预约时间</b><b>{{i[2]}}</b></span>
+										 <span class="num" style="color: #FF7171" >展开<span style="display:none">{{i[0]}}</span></span></p>
                                  </div>
                             </div>
                     </div>
@@ -287,7 +289,30 @@ border-radius: 6px;
 	});
 
 	$(".num").click(function(){
-		alert("已经展开,暂无详情")
+	var num=$(this).find("span").eq(0).text();
+		//alert("已经展开,暂无详情")
+		 $.ajax({
+            	type:"Post",
+				url:"/PersonRecordDetails",
+            	dataType:'json',
+            	data:{"num":num},
+            	success:function(result){
+            	var data = JSON.stringify(result.msg);    //返回的数据
+           		//alert("返回的信息"+data);
+           		var obj = JSON.parse(data);
+           		 layer.open({
+    				content:  '服务时间:'+obj.resvTime
+    				+'</br>开始时间:'+obj.startTime
+    				+'</br>持续时间:'+obj.projectDuration+'分钟'
+    				+'</br>结束时间:'+obj.endTime
+    				+'</br>用户名'+obj.customerName
+    				+'</br>项目:'+obj.businessName
+    				+'</br>店面:'+obj.storeName
+  					 ,btn: '我知道了'
+ 					 });
+           		//alert(obj.resvTime);
+            		}
+	        });
 	});
 
 </script>

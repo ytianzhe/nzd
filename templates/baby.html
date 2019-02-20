@@ -30,7 +30,7 @@
     <div class="panel-heading"   style="border:none;background-color:white">当前宝宝</div>
     <div class=""  style="background-color:white;border:none;padding:5px">
         <div class="list-group" role="group" aria-label="宝宝列表" style="border:none">
-
+{% if results %}
              {% for i in results %}
             <div class="index  babyClass">
                 <div class="index_box">
@@ -61,6 +61,38 @@
 
             </div>
              {% endfor %}
+            {% else %}
+             <div class="index  ">
+                <div class="index_box">
+                    <div class="index_icon">
+                        <div class="icon_h" ></div>
+                        <div class="title"  style="padding-left: 15px;padding-top: 5px;padding-bottom: 5px">
+                            <!--<button type="button" class="list-group-item " data-toggle="modal" data-target="#editBabyModal"  style="border:none ;　outline: none; background: rgba(255,255,255,1);">-->
+                            <table >
+                                <tr>
+                                    <td class="storeTd">宝宝姓名: </td>
+                                    <td class="storeTdValue"><p>暂无</p></td>
+                                </tr>
+                                 <tr>
+                                    <td class="storeTd">出生日期:</td>
+                                    <td class="storeTdValue"> <p>暂无</p></td>
+                                </tr>
+
+                                 <tr style="display:none;">
+                                    <td class="storeId">id: </td>
+                                    <td class="storeIdValue"><p>暂无</p></td>
+                                </tr>
+                            </table>
+                            <!--</button>-->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
         </div>
 
 
@@ -82,7 +114,7 @@
                 <form id="addBabyForm">
                     <div class="form-group">
                         <label  class="control-label">宝宝名称:</label>
-                        <input type="text" class="form-control" id="addBabyName" name="addBabyName">
+                        <input type="text" class="form-control" id="addBabyName" name="addBabyName" >
                     </div>
                     <div class="form-group">
                         <label  class="control-label">出生日期</label>
@@ -114,11 +146,11 @@
                      <input type="hidden" class="form-control" id="babyId" name="babyId">
                     <div class="form-group">
                         <label  class="control-label">宝宝名称:</label>
-                        <input type="text" class="form-control" id="editBabyName" name="editBabyName">
+                        <input type="text" class="form-control" id="editBabyName" name="editbabyName">
                     </div>
                     <div class="form-group">
                         <label  class="control-label">出生日期</label>
-                        <input type="text" class="form-control" id="editBabyBirth" name="editBabyBirth">
+                        <input type="text" class="form-control" id="editBabyBirth" name="editbabyBirth">
                     </div>
 
                 </form>
@@ -145,41 +177,61 @@
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
 $("#addBabyBtn").on("click", function() {
+    var addBabyName=document.getElementById("addBabyName").value
+    var addBabyBirthDate=document.getElementById("addBabyBirth").value
 
-        $.ajax({
+   if(isChinese(addBabyName)){
+       if(isNaN(addBabyBirthDate)&&!isNaN(Date.parse(addBabyBirthDate))&&addBabyBirthDate.length==10){
+          $.ajax({
             	type:"Post",
 				url:"/addBaby",
             	dataType:'json',
             	data:$("#addBabyForm").serialize(),
             	success:function(result){
             	var msg = JSON.stringify(result.msg);    //返回的数据
-           		  <!--layer.open({-->
-			    <!--content: msg-->
-			    <!--,skin: 'msg'-->
-			    <!--,time: 2 //2秒后自动关闭-->
-			  <!--});-->
-			  location.reload();
+            	alert(msg);
+			    location.reload();
             		}
-	});
-		//$('#addBussinessList').modal('hide')
+            	});
 
+            }
+
+else{
+showLayerMsg("宝宝生日格式为是xxxx-xx-xx<br>例:2018-01-01")
+}
+   }
+   else{
+   showLayerMsg('名字必须是中文')
+   }
 	})
 
 
 $("#editBabyBtn").on("click", function() {
+          var editBabyName=document.getElementById("editBabyName").value
+        var editBabyBirthData=document.getElementById("editBabyBirth").value
 
-        $.ajax({
+   if(isChinese(editBabyName)){
+    if(isNaN(editBabyBirthData)&&!isNaN(Date.parse(editBabyBirthData))&&editBabyBirthData.length==10){
+           $.ajax({
             	type:"Post",
 				url:"/editBaby",
             	dataType:'json',
-            	data:$("#editBabyeForm").serialize(),
+            	data:$("#editBabyForm").serialize(),
             	success:function(result){
             	var msg = JSON.stringify(result.msg);    //返回的数据
-
-            		}
+            	alert(msg);
+                location.reload();
+            	}
 	});
+}
 
-		location.reload();
+else{
+showLayerMsg("宝宝生日格式为是xxxx-xx-xx<br>例:2018-01-01")
+}
+}
+else{
+showLayerMsg('名字必须是中文')
+}
 	})
 
 
@@ -192,7 +244,7 @@ $("#delBtn").on("click", function() {
             "delId": babyId
             }
          layer.open({
-             content: '您确定要移除该项目么'
+             content: '您确定要移除该宝宝信息么'
              ,btn: ['确定', '取消']
          ,yes: function(index){
            $.ajax({
@@ -226,6 +278,25 @@ $("#delBtn").on("click", function() {
 
         });
 </script>
+<script language="javascript">
+         //判断是否全是中文
+            function isChinese(temp)
+            {
+            var re=/[^\u4e00-\u9fa5]/;
+            if(re.test(temp)) return false;
+            return true;
+            }
+
+
+function showLayerMsg(msg){
+layer.open({
+			    content:msg
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			  });
+
+}
+  </script>
 </body>
 </html>
 
