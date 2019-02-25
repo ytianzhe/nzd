@@ -219,14 +219,21 @@
 			<nav class="navbar navbar-default navbar-fixed-bottom">
 				<div class="container feet">
 					<!--<p>-->					
-						<a href="/HomePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
-						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
+						<a href="javascript:void(0);"  onclick="HomePageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
+						<a href="javascript:void(0);"  onclick="managePageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
 						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxinfen"></use></svg><br><p style="font-size:12px">我的</p></a>
 					<!--</p>-->
 				</div>
 			</nav>
 		</div>
-		
+<script>
+function HomePageM(){
+window.location.replace('/HomePage');
+}
+function managePageM(){
+window.location.replace('/managePage');
+}
+</script>
 		
 
 		<script>

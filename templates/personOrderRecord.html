@@ -210,24 +210,7 @@ border-radius: 6px;
     </nav>
 </div>
 <script>
-	$("#managementBtn").click(function(){
-		window.location.href="/manageEditPage";
-	});
 
-	$("#reservationRecordBtn").click(function(){
-		window.location.href="/reservationRecordPage";
-	});
-		$("#businessBtn").click(function(){
-		window.location.href="/businessListPage";
-	});
-		$("#storeBtn").click(function(){
-		window.location.href="/storePage";
-	});
-	$("#workNumberBtn").click(function(){
-		window.location.href="/workNumberPage";
-	});$("#msgBtn").click(function(){
-		window.location.href="/msgPage";
-	});
 
 	$(".num").click(function(){
 			var num=$(this).find("span").eq(0).text();
@@ -298,17 +281,15 @@ $("#endTime").focus(function(){
 		 var end = document.getElementById("endTime").value;
 		 //alert("开始时间 ："+sta+" 结束时间： "+end);
 	 	if(sta!=""||end!=""){
-	        document.getElementById("dateForm").action="/reservationPersonRecordPage";
-			document.getElementById("dateForm").submit();
+	 		window.location.replace('/reservationPersonRecordPage?startTime='+sta+' &&endTime='+end);
+	        //document.getElementById("dateForm").action="/reservationPersonRecordPage";
+			//document.getElementById("dateForm").submit();
 	 	}
 	 	else{
 	 		alert("请选择时间范围");
 	 	}
 	 }
-<!--function NewSearch(){-->
-    <!--document.getElementById("dateForm").action="/reservationRecordPage";-->
-	<!--document.getElementById("dateForm").submit();-->
-<!--}-->
+
 
 	</script >
 

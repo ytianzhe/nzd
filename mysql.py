@@ -65,8 +65,8 @@ def customerInfo(openid):
     try:
         conn = NZDMySqlConnect.get_dbconnectYTZ()
         c= conn.cursor()
-        sql = "SELECT * FROM `naizhenduo_customer_info` where customer_wechat="+openid
-        # print(sql)
+        sql = "SELECT * FROM `naizhenduo_customer_info` nzdc where nzdc.customer_wechat= '%s'" % (openid)
+        print(sql)
         c.execute(sql)
         results = c.fetchone()
         # print
@@ -92,8 +92,8 @@ def customerInfoById(id):
     try:
         conn = NZDMySqlConnect.get_dbconnectYTZ()
         c= conn.cursor()
-        sql = "SELECT nci.id,nci.customer_name,nci.customer_phone_num FROM `naizhenduo_customer_info`  nci  where id="+id
-        # print(sql)
+        sql = "SELECT nci.id,nci.customer_name,nci.customer_phone_num FROM `naizhenduo_customer_info`  nci  where id='%s'"% (id)
+        print(sql)
         c.execute(sql)
         results = c.fetchone()
         c.close()
@@ -954,7 +954,7 @@ def SearchBabyNameBybabyId(babyid):
     try:
         conn = NZDMySqlConnect.get_dbconnectYTZ()
         c = conn.cursor()
-        sql = "SELECT nzdb.baby_name FROM `naizhenduo_babylist` nzdb  \
+        sql = "SELECT nzdb.baby_name,nzdb.baby_birthday FROM `naizhenduo_babylist` nzdb  \
         where   nzdb.id='%s' and nzdb.state='1'"  \
          % (babyid)
         print(sql)

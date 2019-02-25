@@ -14,6 +14,9 @@
 <link rel="icon" href={{url_for("static",filename="img/lg_nzd.jpg")}}>
 <link rel="stylesheet" href={{url_for("static",filename="mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css")}}>
 <script src={{url_for("static",filename="bootstrap/js/jquery.min.js")}}></script>
+
+
+
 <script src={{url_for("static",filename="mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js")}}></script>
 <script src={{url_for("static",filename="alibaba/js/iconfont.js")}}></script>
 <link rel="stylesheet" href={{url_for("static",filename="bootstrap/css/bootstrap.min.css")}}>
@@ -337,7 +340,8 @@ background-color:  #FF7171;
 					<!--<p>-->
 						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui"></use></svg><br><p style="font-size:12px">首页</p> </a>
 						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
-						<a href="/personPage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxin"></use></svg><br><p style="font-size:12px">我的</p></a>
+						<a href="javascript:void(0);"  onclick="personPageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxin"></use></svg><br><p style="font-size:12px">我的</p></a>
+					<!--javascript:void(0); /personPage-->
 					<!--</p>-->
 				</div>
 			</nav>
@@ -345,6 +349,10 @@ background-color:  #FF7171;
 
 	</div>
 <script type="text/javascript">
+function personPageM(){
+//alert("1");
+window.location.replace('/personPage');
+}
 $("#express_trigger").change(function(){
 alert('1111')});
 </script>

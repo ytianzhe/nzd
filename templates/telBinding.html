@@ -25,6 +25,7 @@ function sendVerificationCode(){
     var telNum = document.getElementById("telNum").value;
     	if(telNum!="")
     	{
+    	if(isPoneAvailable(telNum)==true){
     	 $.ajax({
             	type:"Post",
 				url:"/sMSVerificationCode",
@@ -55,6 +56,14 @@ function sendVerificationCode(){
 				}
 
  					});
+ 		}
+ 		else{
+ 		 layer.open({
+    content: '请输入合法的手机号'
+    ,skin: 'msg'
+    ,time: 2 //2秒后自动关闭
+  });
+ 		}
  		}
  		else{
  layer.open({
@@ -179,7 +188,7 @@ input {
 						<div class="">
 							<label class="control-label">验证号码:</label>
 							  <div class="radio radio-info radio-inline" style="width:80%">
-								  <input id="code" placeholder="请输入验证码"  style="text-align: center" name="verificationCode"/>
+								  <input id="code" placeholder="请输入验证码"  style="text-align: center" name="verificationCode"  maxlength="4" />
 							  </div>
 							<input type="button" id="btn" value="免费获取验证码" onclick="sendVerificationCode()" />
 							<input type="hidden" value="{{ results }}"  name="openid"/>
@@ -234,13 +243,7 @@ input {
             	success:function(result)
             		{
             	var msg = JSON.stringify(result.msg);    //返回的数据
-            	//alert(msg)
-            		<!--if(msg=="注册成功"){-->
-            	 		<!--setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒-->
-						<!--window.location.reload();//页面刷新-->
-							<!--},2000);-->
-            							<!--}-->
-            	<!--else{-->
+
 			     		layer.open
 			     		({
 			  	  		content: msg
@@ -251,8 +254,9 @@ input {
 						  {
 						  //alert("6666666")
 						  setTimeout(function(){
-        	location.reload();
+						   window.location.replace('/HomeLogin?openid={{results}}');
    	 },1500);
+
 
 
 						  }

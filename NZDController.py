@@ -14,6 +14,8 @@ import os
 import random1
 import  dateTimeDemo
 import Integer30
+import  api_openid
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)  # 设置为24位的字符,每次运行服务器都是不同的，所以服务器启动一次上次的session就清除。
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)  # 设置session的保存时间。\
@@ -221,18 +223,25 @@ def sMSVerificationCode():
 def reservationPersonRecordPage():
     if 'userId' in session:
         userId = session.get('userId')
-        startTime=request.values['startTime']
-        endTime=request.values['endTime']
+        startTime=request.args.get('startTime')
+        endTime=request.args.get('endTime')
+        # startTime=request.values['startTime']
+        # endTime=request.values['endTime']
         # startTime = request.form['startTime']
         # endTime = request.form['endTime']
         print('startTime:',startTime,' endTime:',endTime)
         sqlJoint=''
-        if startTime.strip() != '':
-            sqlJoint= sqlJoint+" and nzdr.resv_time >= '%s' "%(startTime)
-        if endTime.strip() != '':
-            sqlJoint= sqlJoint+" and nzdr.resv_time <= '%s' "%(endTime)
-        if endTime.strip() == ''and startTime.strip() == '':
-            sqlJoint = "and nzdr.resv_time =curdate()"
+        if not startTime is None:
+            if startTime.strip() != '':
+                sqlJoint= sqlJoint+" and nzdr.resv_time >= '%s' "%(startTime)
+                print('开始条件',sqlJoint)
+        if not endTime is None:
+            if endTime.strip() != '':
+                sqlJoint= sqlJoint+" and nzdr.resv_time <= '%s' "%(endTime)
+                print('结束条件', sqlJoint)
+        if not endTime is None and startTime is None :
+            if endTime.strip() == ''and startTime.strip() == '':
+                sqlJoint = "and nzdr.resv_time =curdate()"
         print(sqlJoint)
         results = mysql.SearchPersonRecordDetailsByDate(userId,sqlJoint)
         print(results)
@@ -476,13 +485,19 @@ def editBaby():
             editBabyBirth = request.form['editbabyBirth']
             editId = request.form['babyId']
 
-
-            oldEditBabyName=mysql.SearchBabyNameBybabyId(editId)
+            resultss=mysql.SearchBabyNameBybabyId(editId)
+            oldEditBabyName=resultss[0]
+            oldEditBabyBirth=resultss[1]
             print(editBabyName,oldEditBabyName)
             if(str(editBabyName)==str(oldEditBabyName)):
-                print('名字和旧名字相同')
+                print('名字和旧名字相同 ')
                 updatekey=1
                 print(updatekey)
+                if(str(editBabyBirth)==str(oldEditBabyBirth)):
+                    updatekey = 0
+                    msg = '无修改'
+                    print(updatekey)
+                    return out_user_info('0', msg, 1)
             else:
                 print('名字和旧名字不相同')
                 results = mysql.SearchAddBabyNameByUserId(id, editBabyName)
@@ -856,8 +871,8 @@ def HomeLogin():
         customerName = results['customerName']
         customerId = results['id']
         customerAuthority = results['authority']
-        # print(customerId)
-        # print(customerName)
+        print(customerId)
+        print(customerName)
         print(customerAuthority)
         session.permanent = True  # 默认session的时间持续31天
         session['userId'] = customerId
@@ -963,11 +978,24 @@ def managePage():
 def HomePage():
     if 'userId' in session:
         print(session.get('userId'))
-        name=mysql.customerInfoById('1')['customerName']
-        tel=mysql.customerInfoById('1')['customerPhoneNum']
-        id=mysql.customerInfoById('1')['id']
-        print(name+'--------'+tel)
-        return render_template('index.html',cN=name, ID=id)
+        userId = session.get('userId')
+        if 'authority' in session:
+            authority=session.get('authority')
+            if authority == 'c':
+                results=mysql.customerInfoById(userId)
+                name=results['customerName']
+                tel=results['customerPhoneNum']
+                id=results['id']
+            elif authority == 'm' or authority=='sm':
+                results=mysql.workerById(userId)
+                name=results['workerName']
+                tel=results['workerPhoneNum']
+                id=results['id']
+            print(name+'--------'+tel)
+            return render_template('index.html', cN=name, ID=id)
+        else:
+            print('authority')
+            return render_template('error.html')
     else:
         print('Session中没有userId')
         return render_template('error.html')
@@ -989,6 +1017,7 @@ def peresonPage():
                 name = mysql.customerInfoById(id)['customerName']
                 tel = mysql.customerInfoById(id)['customerPhoneNum']
                 print(name + '--------' + tel)
+                #return render_template('person.html', userName=name, phoneNumber=tel)
                 return render_template('person.html', userName=name, phoneNumber=tel)
             elif authority != 'c':
                 print(userId)
@@ -996,6 +1025,7 @@ def peresonPage():
                 name = mysql.workerById(id)['workerName']
                 tel = mysql.workerById(id)['workerPhoneNum']
                 print(name + '--------' + tel)
+                # return render_template('workerPerson.html', userName=name, phoneNumber=tel)
                 return render_template('workerPerson.html', userName=name, phoneNumber=tel)
             else :
                 return render_template('error.html')
@@ -1102,6 +1132,83 @@ def query_login():
 
 
 
+@app.route("/t/" ,methods=['GET','POST'])
+def t():
+    code = request.args.get('code')
+    url = 'https://api.weixin.qq.com/sns/oauth2/access_token'
+    appid = 'wxbce3138d5425b8f6'
+    secret = '11e3986e750779b705904cb70ede345a'
+    print(code)
+    result=api_openid.api_func(url,appid,secret,code)
+    openid=result["openid"]
+    print(openid)
+    results = mysql.customerInfo(openid)
+    if not results is None:
+        customerName = results['customerName']
+        customerId = results['id']
+        customerAuthority = results['authority']
+
+        print('当前用户id')
+        print(customerId)
+        # print(customerName)
+        print(customerAuthority)
+        session.permanent = True  # 默认session的时间持续31天
+        session['userId'] = customerId
+        session['authority'] = customerAuthority
+        print(session.get('userId'))
+        storeList = mysql.selectStoreList()
+        list = []
+        for i in storeList:
+            # print(i[0])
+            list.append(i[0])
+            # print(len(i[0]))
+        print(list)
+        # return render_template('index.html, cN=customerName, ID=customerId, storeList=list)
+        return render_template('index.html?state=' + random1.randomFour(), cN=customerName, ID=customerId,storeList=list)
+    else:
+        return render_template('telBinding.html', results=openid)
+    # NewUrl=url_for('HomeLogin', openid=openid)
+    # print(NewUrl)
+    # return  redirect(url_for('HomeLogin', openid=openid))
+
+
+
+    #return NewUrl
+    # return code
+
+
+# @app.route("/a/",methods=['GET','POST'])
+# def a():
+#     code = request.args.get('code')
+#     url = 'https://api.weixin.qq.com/sns/oauth2/access_token'
+#     appid  =  'wxbce3138d5425b8f6'
+#     secret = '11e3986e750779b705904cb70ede345a'
+#     print(code)
+#     result=api_openid.api_func(url,appid,secret,code)
+#     openid=result["openid"]
+#     print(openid)
+#     results = mysql.workerInfo(openid)
+#     if results is None:
+#         return render_template('register.html', openid=openid)
+#     else:
+#         WorkerName = results['workerName']
+#         WorkerId = results['id']
+#         WorkerAuthority = results['authority']
+#         WorkerLocation = results['location']
+#         print(WorkerName, WorkerId, WorkerAuthority)
+#         session.permanent = True  # 默认session的时间持续31天
+#         session['userId'] = WorkerId
+#         session['authority'] = WorkerAuthority
+#         session['location'] = WorkerLocation
+#         print(session.get('userId'))
+#         storeList = mysql.selectStoreList()
+#         list = []
+#         for i in storeList:
+#             # print(i[0])
+#             list.append(i[0])
+#             # print(len(i[0]))
+#         print(list)
+#         return render_template('index.html', storeList=list)
 
 
 

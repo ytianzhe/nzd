@@ -173,7 +173,7 @@ input {
 						<div class="">
 							<label class="control-label">验证号码:</label>
 							  <div class="radio radio-info radio-inline" style="width:80%">
-								  <input id="code" placeholder="请输入验证码"  style="text-align: center" name="verificationCode"/>
+								  <input id="code" placeholder="请输入验证码"  style="text-align: center" name="verificationCode" maxlength="4"/>
 							  </div>
 							<input type="button" id="btn" value="免费获取验证码" onclick="sendVerificationCode()" />
 							<input type="hidden" value="{{ openid }}"  name="openid"/>

@@ -206,7 +206,7 @@
 				<p>手机号：{{phoneNumber}}</p>
 			</div>
 			<div class="right_icon">
-				<a id="editTel" href="javascript:;" class="iconfont">&#xe7f5;</a>
+				<a  href="javascript:void(0);" onclick="editTelM()" class="iconfont">&#xe7f5;</a>
 			</div>
 		</header>
 		
@@ -224,14 +224,24 @@
 			<nav class="navbar navbar-default navbar-fixed-bottom">
 				<div class="container feet">
 					<!--<p>-->					
-						<a href="/HomePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
-						<a href="/managePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
+						<a href="javascript:void(0);"  onclick="HomePageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-shouyehui-"></use></svg><br><p style="font-size:12px">首页</p> </a>
+						<a href="javascript:void(0);"  onclick="managePageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-guanlifen"></use></svg><br><p style="font-size:12px">管理中心</p> </a>
 						<a href="javascript:void(0);"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-gerenzhongxinfen"></use></svg><br><p style="font-size:12px">我的</p></a>
 					<!--</p>-->
 				</div>
 			</nav>
 		</div>
-		
+<script>
+function HomePageM(){
+window.location.replace('/HomePage');
+}
+function managePageM(){
+window.location.replace('/managePage');
+}
+function editTelM(){
+window.location.replace('/changeTelPage');
+}
+</script>
 		
 
 		<script>
@@ -245,10 +255,7 @@
 			$('footer a').click(function(){
 				$(this).addClass('on').siblings().removeClass('on');
 			});
-			$('#editTel').click(function(){
-				//alert('手机号功能修改寻找短信合作人中,敬请期待!');
-				window.location.href="/changeTelPage";
-			})
+
 		</script>
 	</body>
 </html>

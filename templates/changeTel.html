@@ -204,13 +204,18 @@ input {
 			<nav class="navbar navbar-default navbar-fixed-bottom">
 				<div class="container feet">
 					<!--<p>-->
-							<a href="/HomePage"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
-					    <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
+							<a href="javascript:void(0);"  onclick="personPageM()"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-fanhui"></use></svg><br> </a>
+					        <a href=""><svg class="icon" aria-hidden="true"><use xlink:href="#icon-Right1"></use></svg><br></a>
 					<!--</p>-->
 				</div>
 			</nav>
 	</div>
+<script>
 
+function personPageM(){
+window.location.replace('/personPage');
+}
+</script>
 	<script>
 		$("#changebindingBtn").on("click", function() {
 		var telNum = document.getElementById("telNum").value;
